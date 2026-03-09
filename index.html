@@ -1,1 +1,343 @@
-</>/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kosmic Worlds</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf7f2;
+      --cream-mid: #f2ede4;
+      --cream-dark: #e8e0d2;
+      --ink: #1a1714;
+      --ink-mid: #4a4540;
+      --ink-light: #9a9088;
+      --accent: #8b7355;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Jost', sans-serif;
+    }
+
+    /* subtle paper texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(210,195,170,0.3) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(200,185,160,0.2) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 460px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── logo ── */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 48px;
+      animation: fadeUp 1s 0.05s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+    }
+
+    .logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+    }
+
+    /* ── thin rule ── */
+    .rule {
+      width: 32px;
+      height: 1px;
+      background: var(--cream-dark);
+      margin-bottom: 36px;
+      animation: fadeUp 1s 0.15s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    /* ── coming soon ── */
+    .eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 20px;
+      animation: fadeUp 1s 0.2s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    /* ── headline ── */
+    .headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 8vw, 52px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      text-align: center;
+      color: var(--ink);
+      margin-bottom: 24px;
+      animation: fadeUp 1s 0.25s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    .headline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* ── description ── */
+    .description {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--ink-mid);
+      text-align: center;
+      max-width: 320px;
+      margin-bottom: 48px;
+      animation: fadeUp 1s 0.3s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    /* ── waitlist ── */
+    .waitlist {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 48px;
+      animation: fadeUp 1s 0.35s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    .input-row {
+      width: 100%;
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--cream-dark);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .input-row:focus-within {
+      border-color: var(--accent);
+    }
+
+    .waitlist input {
+      flex: 1;
+      padding: 14px 18px;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+
+    .waitlist input::placeholder {
+      color: var(--ink-light);
+    }
+
+    .waitlist button {
+      padding: 14px 22px;
+      background: var(--ink);
+      border: none;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      transition: background 0.2s, opacity 0.2s;
+      white-space: nowrap;
+    }
+
+    .waitlist button:hover {
+      background: var(--accent);
+    }
+
+    .success-msg {
+      display: none;
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-align: center;
+    }
+
+    /* ── divider ── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--cream-dark);
+      margin-bottom: 32px;
+      animation: fadeUp 1s 0.4s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    /* ── socials ── */
+    .socials {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      animation: fadeUp 1s 0.45s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    .socials a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .socials a:hover {
+      color: var(--ink);
+      transform: translateY(-2px);
+    }
+
+    .socials svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* ── footer ── */
+    .footer {
+      margin-top: 48px;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--ink-light);
+      text-align: center;
+      animation: fadeUp 1s 0.5s cubic-bezier(0.16,1,0.3,1) both;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="card">
+
+      <!-- logo -->
+      <div class="logo">
+        <svg class="logo-mark" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#a78bfa"/>
+              <stop offset="50%" stop-color="#f472b6"/>
+              <stop offset="100%" stop-color="#38bdf8"/>
+            </linearGradient>
+          </defs>
+          <path d="M17 17 Q17 7 27 7 Q32 7 32 12 Q32 22 17 22 Q7 22 7 15 Q7 8 14 8 Q22 8 22 17 Q22 24 17 26" stroke="url(#sg)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </svg>
+        <span class="logo-text">Kosmic Worlds</span>
+      </div>
+
+      <div class="rule"></div>
+
+      <!-- eyebrow -->
+      <p class="eyebrow">Coming Soon</p>
+
+      <!-- headline -->
+      <h1 class="headline">Simulate the<br /><em>unknown.</em></h1>
+
+      <!-- description -->
+      <p class="description">
+        Introducing Kosmic Worlds — a new way to understand and simulate the physical world through AI.
+      </p>
+
+      <!-- waitlist -->
+      <div class="waitlist">
+        <div class="input-row">
+          <input type="email" id="email-input" placeholder="Your email address" autocomplete="email" />
+          <button onclick="handleJoin()">Join Waitlist</button>
+        </div>
+        <p class="success-msg" id="success-msg">You're on the list — we'll be in touch.</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- socials -->
+      <div class="socials">
+        <!-- Twitter / X -->
+        <a href="https://twitter.com/kosmicworlds" target="_blank" aria-label="Twitter">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.626L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <!-- TikTok -->
+        <a href="https://tiktok.com/@kosmicworlds" target="_blank" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
+        </a>
+        <!-- Instagram -->
+        <a href="https://instagram.com/kosmicworlds" target="_blank" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.162S15.403 5.838 12 5.838zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <!-- Email -->
+        <a href="mailto:hello@kosmicworlds.com" aria-label="Email">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+      </div>
+
+    </div>
+
+    <p class="footer">© 2025 Kosmic Worlds · All rights reserved</p>
+  </div>
+
+  <script>
+    function handleJoin() {
+      const input = document.getElementById('email-input');
+      const msg = document.getElementById('success-msg');
+      const email = input.value.trim();
+      if (!email || !email.includes('@')) {
+        input.closest('.input-row').style.borderColor = '#c0a080';
+        setTimeout(() => input.closest('.input-row').style.borderColor = '', 1200);
+        return;
+      }
+      // TODO: replace with Mailchimp POST action URL
+      input.closest('.input-row').style.display = 'none';
+      msg.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
