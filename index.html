@@ -1536,13 +1536,13 @@
       colors.forEach((color, arm) => {
         const offset = (Math.PI * 2 / 3) * arm;
         ctx.strokeStyle = color;
-        ctx.lineWidth = 11;
+        ctx.lineWidth = 22;
         ctx.lineCap = "round";
         ctx.beginPath();
 
         for (let i = 0; i < 100; i++) {
           const t = i / 100;
-          const distance = t * 72;
+          const distance = t * 90;
           const angle = offset + t * Math.PI * 3;
           const x = cx + Math.cos(angle) * distance;
           const y = cy + Math.sin(angle) * distance;
