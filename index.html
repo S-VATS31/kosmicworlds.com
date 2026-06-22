@@ -137,10 +137,10 @@
     .hero-panel {
       border-radius: 38px;
       padding: 34px 34px 30px;
-      min-height: 720px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
+      gap: 28px;
     }
     .hero-panel::before {
       content: ""; position: absolute; width: 320px; height: 320px;
@@ -169,8 +169,8 @@
       letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-soft);
     }
     .hero-title {
-      margin: 0; font-family: "Playfair Display", serif;
-      font-size: clamp(60px, 7.4vw, 104px); line-height: 1.0; font-weight: 700;
+      margin: 0; font-family: "Cormorant Garamond", serif;
+      font-size: clamp(60px, 7.4vw, 104px); line-height: 0.96; font-weight: 400;
       letter-spacing: -0.03em; color: var(--text); max-width: 720px;
     }
     .hero-title em { font-style: italic; color: var(--accent-gold); }
@@ -180,7 +180,6 @@
 
     .hero-bottom {
       position: relative; z-index: 1;
-      margin-top: 26px;
     }
     .waitlist-box {
       padding: 22px; border-radius: 24px; border: 1px solid rgba(23,20,18,0.08);
@@ -218,7 +217,7 @@
     .proof-copy { font-size: 15px; line-height: 1.55; color: var(--text-mid); max-width: 20ch; }
 
     .demo-panel {
-      border-radius: 38px; padding: 28px; min-height: 720px;
+      border-radius: 38px; padding: 28px;
       display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;
       background:
         linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.56)),
