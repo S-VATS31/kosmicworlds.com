@@ -8,6 +8,10 @@
     name="description"
     content="Kosmic Worlds builds long-horizon world models that generate synthetic training data for robotics and autonomous vehicle teams."
   />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -511,16 +515,6 @@
         }
         ctx.stroke();
       });
-      if (canvas.toBlob) {
-        canvas.toBlob(function(blob) {
-          if (!blob) return;
-          const url = URL.createObjectURL(blob);
-          let link = document.querySelector('link[rel="icon"]');
-          if (!link) { link = document.createElement("link"); link.rel = "icon"; document.head.appendChild(link); }
-          link.type = "image/png";
-          link.href = url;
-        });
-      }
     })();
 
     (function bindCustomScroll() {
