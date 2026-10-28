@@ -1,548 +1,162 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kosmic Worlds</title>
-  <meta
-    name="description"
-    content="Kosmic Worlds builds long-horizon world models that generate synthetic training data for robotics and autonomous vehicle teams."
-  />
-  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Manrope:wght@400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at 12% 14%, rgba(228, 210, 255, 0.42), transparent 26%),
-        radial-gradient(circle at 88% 20%, rgba(170, 230, 255, 0.34), transparent 24%),
-        radial-gradient(circle at 50% 100%, rgba(212, 245, 225, 0.28), transparent 30%),
-        linear-gradient(180deg, #fcfaf5 0%, #f7f1e6 52%, #f3ecdf 100%);
-      color: #171412;
-      font-family: "Manrope", sans-serif;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-      overflow-x: hidden;
-    }
-
-    :root {
-      --bg: #fbf8f1;
-      --panel: rgba(255, 255, 255, 0.6);
-      --line: rgba(23, 20, 18, 0.08);
-      --line-strong: rgba(23, 20, 18, 0.14);
-      --text: #171412;
-      --text-mid: rgba(23, 20, 18, 0.72);
-      --text-soft: rgba(23, 20, 18, 0.48);
-      --accent-rose: #d85b8f;
-      --accent-violet: #8e69d9;
-      --accent-cyan: #31b6d8;
-      --accent-gold: #9a7a4d;
-      --shadow-lg: 0 28px 70px rgba(68, 44, 22, 0.08);
-      --shadow-md: 0 16px 40px rgba(68, 44, 22, 0.06);
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .texture, .mesh, .glow-layer {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    }
-    .texture {
-      opacity: 0.08;
-      background-image:
-        linear-gradient(rgba(40, 28, 18, 0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(40, 28, 18, 0.03) 1px, transparent 1px);
-      background-size: 4px 4px, 4px 4px;
-      mix-blend-mode: multiply;
-    }
-    .mesh {
-      opacity: 0.18;
-      background:
-        linear-gradient(rgba(24, 18, 14, 0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(24, 18, 14, 0.045) 1px, transparent 1px);
-      background-size: 72px 72px;
-      mask-image: radial-gradient(circle at 50% 28%, black 22%, transparent 78%);
-    }
-    .glow-layer {
-      background:
-        radial-gradient(circle at 25% 18%, rgba(216, 91, 143, 0.12), transparent 22%),
-        radial-gradient(circle at 74% 16%, rgba(49, 182, 216, 0.12), transparent 20%),
-        radial-gradient(circle at 50% 74%, rgba(142, 105, 217, 0.08), transparent 28%);
-      filter: blur(18px);
-      opacity: 0.8;
-    }
-
-    .site {
-      position: relative;
-      z-index: 1;
-      width: min(1280px, calc(100vw - 40px));
-      margin: 0 auto;
-      padding: 28px 0 34px;
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 42px;
-    }
-    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
-    .brand-mark {
-      display: flex; align-items: center; justify-content: center;
-      width: 32px; height: 32px;
-      flex-shrink: 0;
-    }
-    .brand-mark canvas { width: 32px; height: 32px; display: block; }
-    .brand-name {
-      display: inline-flex; align-items: center;
-      font-size: 28px; line-height: 32px; height: 32px;
-      font-weight: 650; letter-spacing: -0.05em; color: var(--text);
-    }
-
-    .nav { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
-    .nav a {
-      height: 44px; padding: 0 18px; border-radius: 999px;
-      display: inline-flex; align-items: center; justify-content: center;
-      font-family: "IBM Plex Mono", monospace; font-size: 13px;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      transition: all 0.2s ease;
-    }
-    .nav-link { color: var(--text-soft); border: 1px solid transparent; }
-    .nav-link:hover { border-color: rgba(23,20,18,0.08); background: rgba(255,255,255,0.45); color: var(--text); transform: translateY(-1px); }
-    .nav-cta {
-      color: #fffaf4; border: none;
-      background: linear-gradient(135deg, var(--accent-rose), var(--accent-violet) 52%, var(--accent-cyan));
-      box-shadow: 0 12px 28px rgba(142,105,217,0.22); font-weight: 600;
-    }
-    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 16px 32px rgba(142,105,217,0.26); }
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(400px, 0.92fr);
-      gap: 34px;
-      align-items: stretch;
-    }
-
-    .hero-panel, .demo-panel, .feature-card, .quotes-panel, .signal-panel, .cta-panel {
-      position: relative;
-      background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.52));
-      border: 1px solid rgba(23,20,18,0.08);
-      box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.88);
-      backdrop-filter: blur(18px);
-      overflow: hidden;
-    }
-
-    .hero-panel {
-      border-radius: 38px;
-      padding: 34px 34px 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      gap: 28px;
-    }
-    .hero-panel::before {
-      content: ""; position: absolute; width: 320px; height: 320px;
-      top: -140px; right: -80px; border-radius: 999px;
-      background: radial-gradient(circle, rgba(216,91,143,0.18), transparent 68%);
-      filter: blur(10px); pointer-events: none;
-    }
-
-    .status { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
-    .status-pill {
-      min-height: 38px; padding: 0 14px; border-radius: 999px;
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,0.56); border: 1px solid rgba(23,20,18,0.08);
-      color: var(--text-mid); font-family: "IBM Plex Mono", monospace;
-      font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
-    }
-    .status-pill.live::before {
-      content: ""; width: 8px; height: 8px; border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
-      box-shadow: 0 0 0 6px rgba(49,182,216,0.08); flex-shrink: 0;
-    }
-
-    .hero-copy-wrap { position: relative; z-index: 1; }
-    .eyebrow {
-      margin: 0 0 18px; font-family: "IBM Plex Mono", monospace; font-size: 13px;
-      letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-soft);
-    }
-    .hero-title {
-      margin: 0; font-family: "Playfair Display", serif;
-      font-size: clamp(54px, 6.6vw, 92px); line-height: 1.02; font-weight: 600;
-      letter-spacing: -0.02em; color: var(--text); max-width: 720px;
-    }
-    .hero-title em { font-style: italic; font-weight: 600; color: var(--accent-gold); }
-    .hero-body {
-      margin: 24px 0 0; max-width: 560px; font-size: 18px; line-height: 1.78; color: var(--text-mid);
-    }
-
-    .hero-bottom {
-      position: relative; z-index: 1;
-    }
-    .waitlist-box {
-      padding: 22px; border-radius: 24px; border: 1px solid rgba(23,20,18,0.08);
-      background: rgba(255,255,255,0.58); box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
-      overflow: hidden; min-width: 0;
-    }
-    .waitlist-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 18px; }
-    .waitlist-kicker { font-family: "IBM Plex Mono", monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-soft); }
-    .waitlist-note { font-size: 13px; color: rgba(23, 20, 18, 0.56); }
-    .waitlist-form { display: grid; grid-template-columns: minmax(0, 1fr) minmax(190px, 220px); gap: 14px; align-items: stretch; }
-    .waitlist-form input {
-      width: 100%; min-width: 0; height: 60px; padding: 0 20px; border-radius: 18px;
-      border: 1px solid rgba(23,20,18,0.1); background: rgba(255,255,255,0.82);
-      color: var(--text); font-size: 16px; outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-    .waitlist-form input:focus { border-color: rgba(142,105,217,0.34); box-shadow: 0 0 0 4px rgba(142,105,217,0.08); background: rgba(255,255,255,0.96); }
-    .waitlist-form button {
-      width: 100%; min-width: 0; height: 60px; padding: 0 18px; border: none; border-radius: 18px;
-      cursor: pointer; color: #fffaf4; font-family: "IBM Plex Mono", monospace; font-size: 13px;
-      letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap;
-      background: linear-gradient(135deg, var(--accent-rose), var(--accent-violet) 52%, var(--accent-cyan));
-      box-shadow: 0 12px 24px rgba(142,105,217,0.22);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .waitlist-form button:hover { transform: translateY(-1px); box-shadow: 0 16px 28px rgba(142,105,217,0.26); }
-
-    .proof-box {
-      padding: 22px; border-radius: 24px; border: 1px solid rgba(23,20,18,0.08);
-      background: rgba(255,255,255,0.46); min-height: 100%;
-      display: flex; flex-direction: column; justify-content: flex-start; gap: 18px; min-width: 0;
-    }
-    .proof-label { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 12px; }
-    .proof-value { font-size: clamp(26px, 2.6vw, 38px); line-height: 0.96; letter-spacing: -0.04em; font-weight: 700; color: var(--text); margin-bottom: 0; }
-    .proof-copy { font-size: 15px; line-height: 1.55; color: var(--text-mid); max-width: 20ch; }
-
-    .demo-panel {
-      border-radius: 38px; padding: 28px;
-      display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.56)),
-        radial-gradient(circle at 18% 12%, rgba(216,91,143,0.12), transparent 24%),
-        radial-gradient(circle at 82% 18%, rgba(49,182,216,0.12), transparent 22%);
-    }
-    .demo-top { display: block; }
-    .demo-title { font-family: "IBM Plex Mono", monospace; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-soft); }
-    .demo-frame {
-      position: relative; border-radius: 28px; overflow: hidden;
-      border: 1px solid rgba(23,20,18,0.06); aspect-ratio: 16/9; background: #111;
-      box-shadow: var(--shadow-md);
-    }
-    .demo-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
-    .demo-fallback {
-      display: block; text-align: center; padding: 4px;
-      font-family: "IBM Plex Mono", monospace; font-size: 13px; letter-spacing: 0.06em; color: var(--text-soft);
-    }
-
-    .section { margin-top: 40px; display: grid; grid-template-columns: 1fr; gap: 18px; align-items: start; }
-    .left-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-
-    .feature-card { border-radius: 30px; padding: 28px; transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease; }
-    .feature-card:hover { transform: translateY(-2px); box-shadow: 0 24px 56px rgba(68, 44, 22, 0.1); border-color: rgba(23, 20, 18, 0.12); }
-    .feature-eyebrow {
-      font-family: "IBM Plex Mono", monospace; font-size: 13px;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-soft);
-      margin-bottom: 10px; line-height: 1.6;
-    }
-    .feature-title { margin: 0; font-family: "Playfair Display", serif; font-size: clamp(40px, 4vw, 56px); line-height: 1.05; font-weight: 700; letter-spacing: -0.02em; color: var(--text); }
-    .feature-copy { margin: 14px 0 0; font-size: 17px; line-height: 1.82; color: var(--text-mid); max-width: 620px; }
-    .feature-copy + .feature-copy { margin-top: 12px; }
-
-    .quotes-panel { border-radius: 30px; padding: 28px; transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease; }
-    .quotes-panel:hover { transform: translateY(-2px); box-shadow: 0 24px 56px rgba(68, 44, 22, 0.1); border-color: rgba(23, 20, 18, 0.12); }
-    .quote-block { padding: 18px 0; border-top: 1px solid rgba(23,20,18,0.08); }
-    .quote-block:first-of-type { border-top: none; padding-top: 4px; }
-    .quote-text { font-family: "Playfair Display", serif; font-size: 22px; font-style: italic; font-weight: 600; line-height: 1.5; color: var(--text); margin: 0 0 10px; }
-    .quote-attr { font-family: "IBM Plex Mono", monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-soft); }
-
-    .signal-panel {
-      border-radius: 30px; padding: 24px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.58)),
-        radial-gradient(circle at 82% 20%, rgba(216,91,143,0.1), transparent 22%),
-        radial-gradient(circle at 14% 80%, rgba(49,182,216,0.1), transparent 24%);
-      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
-    }
-    .signal-panel:hover { transform: translateY(-2px); box-shadow: 0 24px 56px rgba(68, 44, 22, 0.1); border-color: rgba(23, 20, 18, 0.12); }
-    .signal-panel .feature-title { font-size: clamp(36px, 3.6vw, 48px); line-height: 1; }
-    .signal-band { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
-    .signal-pill {
-      min-height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(23,20,18,0.08);
-      background: rgba(255,255,255,0.56); display: inline-flex; align-items: center;
-      font-family: "IBM Plex Mono", monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-mid);
-    }
-
-    .cta-panel {
-      border-radius: 34px; margin-top: 32px; padding: 30px;
-      display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
-      gap: 24px; align-items: center;
-      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
-    }
-    .cta-panel:hover { transform: translateY(-2px); box-shadow: 0 24px 56px rgba(68, 44, 22, 0.1); border-color: rgba(23, 20, 18, 0.12); }
-    .cta-title { margin: 0 0 10px; font-family: "Playfair Display", serif; font-size: clamp(46px, 4.8vw, 68px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 700; color: var(--text); }
-    .cta-copy { margin: 0; max-width: 560px; font-size: 17px; line-height: 1.82; color: var(--text-mid); }
-    .cta-list { display: grid; gap: 12px; }
-    .cta-item {
-      padding: 16px 18px; border-radius: 20px; border: 1px solid rgba(23,20,18,0.08);
-      background: rgba(255,255,255,0.54);
-      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
-    }
-    .cta-item:hover { transform: translateY(-2px); box-shadow: 0 24px 56px rgba(68, 44, 22, 0.1); border-color: rgba(23, 20, 18, 0.12); }
-    .cta-item-label { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 6px; }
-    .cta-item-title { font-size: 16px; line-height: 1.35; font-weight: 600; color: var(--text); }
-
-    .footer {
-      margin-top: 30px; padding: 18px 2px 4px; display: flex; align-items: center; justify-content: space-between;
-      gap: 16px; flex-wrap: wrap; border-top: 1px solid rgba(23, 20, 18, 0.08);
-    }
-    .footer-copy { font-family: "IBM Plex Mono", monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-soft); }
-    .socials { display: flex; gap: 10px; flex-wrap: wrap; }
-    .socials a {
-      width: 42px; height: 42px; border-radius: 999px; display: grid; place-items: center;
-      border: 1px solid rgba(23,20,18,0.08); background: rgba(255,255,255,0.56); color: rgba(23,20,18,0.58);
-      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease, background 0.24s ease, color 0.24s ease;
-    }
-    .socials a:hover { transform: translateY(-2px); color: var(--text); background: rgba(255,255,255,0.82); border-color: rgba(142,105,217,0.18); }
-    .socials svg { width: 18px; height: 18px; fill: currentColor; }
-
-    a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid rgba(142, 105, 217, 0.22); outline-offset: 3px; }
-
-    @media (max-width: 1180px) {
-      .hero-bottom { grid-template-columns: 1fr; }
-      .waitlist-form { grid-template-columns: 1fr; }
-      .waitlist-form button { width: 100%; }
-      .proof-copy { max-width: none; }
-    }
-    @media (max-width: 1120px) {
-      .hero, .section, .cta-panel { grid-template-columns: 1fr; }
-      .hero-panel, .demo-panel { min-height: auto; }
-    }
-    @media (max-width: 760px) {
-      .site { width: min(100vw - 24px, 1280px); padding-top: 18px; }
-      .topbar { align-items: flex-start; }
-      .nav { justify-content: flex-start; }
-      .hero-panel, .demo-panel, .feature-card, .quotes-panel, .signal-panel, .cta-panel { border-radius: 26px; }
-      .hero-panel, .demo-panel { padding: 20px; }
-      .hero-title { font-size: clamp(48px, 15vw, 76px); }
-      .feature-title { font-size: clamp(32px, 10vw, 44px); }
-      .signal-panel .feature-title { font-size: clamp(28px, 9vw, 38px); }
-      .cta-title { font-size: clamp(36px, 11vw, 52px); }
-      .footer { flex-direction: column; align-items: flex-start; }
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kosmic Worlds develops action-conditioned, long-horizon, physically grounded world models for robotics and autonomous driving.">
+  <meta name="theme-color" content="#f7f7f3">
+  <title>Kosmic Worlds — Action-conditioned world models</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/kosmic-mark.svg">
+  <link rel="preload" href="assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css?v=6">
+  <script src="assets/js/main.js" defer></script>
 </head>
 <body>
-  <div class="glow-layer" aria-hidden="true"></div>
-  <div class="mesh" aria-hidden="true"></div>
-  <div class="texture" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header container">
+    <a class="brand" href="/" aria-label="Kosmic Worlds home">
+      <img src="assets/images/kosmic-mark.svg" width="34" height="34" alt="">
+      <span>Kosmic Worlds</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+      <span class="menu-label">Menu</span>
+      <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M3 6.5h14M3 13.5h14" stroke="currentColor" stroke-width="1.5"/></svg>
+    </button>
+    <nav id="primary-nav" aria-label="Main navigation">
+      <a href="/models/">Models</a>
+      <a href="/pace/">PACE</a>
+      <a href="/approach/">Approach</a>
+      <a href="/mission/">Our Mission</a>
+      <a href="/about/">About</a>
+      <a class="nav-contact" href="/contact/">Contact <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
 
-  <div class="site">
-    <header class="topbar">
-      <a class="brand" href="#">
-        <span class="brand-mark"><canvas id="galaxy-canvas" aria-hidden="true"></canvas></span>
-        <span class="brand-name">Kosmic Worlds</span>
-      </a>
-      <nav class="nav" aria-label="Primary">
-        <a class="nav-link" href="#what-section" data-scroll-target="what-section">What We Build</a>
-        <a class="nav-link" href="#bottom-section" data-scroll-target="bottom-section">Who It's For</a>
-        <a class="nav-cta" href="#waitlist" data-scroll-target="waitlist">Talk To Us</a>
-      </nav>
-    </header>
-
-    <main>
-      <section class="hero">
-        <div class="hero-panel">
-          <div class="hero-copy-wrap">
-            <p class="eyebrow">Synthetic training data for embodied AI</p>
-
-            <h1 class="hero-title">Simulate the <em>unknown</em></h1>
-
-            <p class="hero-body">
-              Kosmic Worlds trains long-horizon world models that generate synthetic video data
-              for robotics and autonomous vehicle teams, covering the rare scenarios and edge
-              cases that real-world data collection can't reach at scale.
-            </p>
-          </div>
-
-          <div class="hero-bottom">
-            <div class="waitlist-box" id="waitlist">
-              <div class="waitlist-head">
-                <div class="waitlist-kicker">Get in touch</div>
-                <div class="waitlist-note">For robotics &amp; autonomous vehicle teams, design partners, and investors</div>
-              </div>
-              <form class="waitlist-form" action="https://formspree.io/f/mkoqooqa" method="POST">
-                <input type="email" name="email" aria-label="Email address" inputmode="email" autocomplete="email" required />
-                <button type="submit">Reach Out</button>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <div class="demo-panel">
-          <div class="demo-top">
-            <div class="demo-title">V1 Demo Reel</div>
-          </div>
-
-          <div class="demo-frame">
-            <iframe
-              src="https://www.youtube.com/embed/PgaZC5rolSA"
-              title="Kosmic Worlds V1 demo"
-              allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
-          <a class="demo-fallback" href="https://youtu.be/PgaZC5rolSA" target="_blank" rel="noreferrer">Not loading? Watch on YouTube →</a>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="left-stack">
-          <article class="feature-card" id="what-section">
-            <h2 class="feature-title">What We're Building</h2>
-            <p class="feature-copy">
-              Most video generation breaks down after a few seconds, losing track of objects,
-              geometry, and motion. Kosmic Worlds is built around long-horizon coherence: keeping a
-              scene physically consistent over minutes, not seconds, so the output is usable as
-              real training data, not just a demo reel.
-            </p>
-            <p class="feature-copy">
-              V2 is in development now, with a driving-specific finetune, V2D, planned for autonomous vehicle
-              customers on top of the same base model.
-            </p>
-          </article>
-
-          <article class="signal-panel">
-            <h3 class="feature-title">Core Approach</h3>
-            <p class="feature-copy" style="margin-top:12px;">
-              Synthetic data that's structured for model training: action-conditioned rollout,
-              world-state memory, and consistency across long sequences.
-            </p>
-            <div class="signal-band">
-              <span class="signal-pill">Long-horizon coherence</span>
-              <span class="signal-pill">Action-conditioned rollout</span>
-              <span class="signal-pill">World-state memory</span>
-              <span class="signal-pill">Edge-case generation</span>
-            </div>
-          </article>
-        </div>
-
-
-      </section>
-
-      <section class="cta-panel" id="bottom-section">
-        <div>
-          <h2 class="cta-title">Get In Touch</h2>
-          <p class="cta-copy">
-            Building a robotics or autonomous vehicle team and dealing with training data constraints? Reach out
-            directly, we're talking with ML and simulation leads as we build V2.
-          </p>
-        </div>
-
-        <div class="cta-list">
-          <div class="cta-item">
-            <div><div class="cta-item-label">Status</div><div class="cta-item-title">V1 complete, V2 in development</div></div>
-          </div>
-          <div class="cta-item">
-            <div><div class="cta-item-label">Audience</div><div class="cta-item-title">Robotics, autonomous vehicles, and ADAS teams</div></div>
-          </div>
-          <div class="cta-item">
-            <div><div class="cta-item-label">Contact</div><div class="cta-item-title">contact@kosmicworlds.com</div></div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-copy">© 2026 Kosmic Worlds · All rights reserved</div>
-      <div class="socials">
-        <a href="https://twitter.com/kosmicworlds" target="_blank" rel="noreferrer" aria-label="Twitter / X">
-          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.626L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="https://linkedin.com/company/kosmicworlds" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 11.02-4.12 2.06 2.06 0 01-.02 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
-        </a>
-        <a href="https://tiktok.com/@kosmicworlds" target="_blank" rel="noreferrer" aria-label="TikTok">
-          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
-        </a>
-        <a href="https://instagram.com/kosmicworlds" target="_blank" rel="noreferrer" aria-label="Instagram">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.162S15.403 5.838 12 5.838zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        </a>
-        <a href="https://youtube.com/@kosmicworlds1" target="_blank" rel="noreferrer" aria-label="YouTube">
-          <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3.02 3.02 0 00-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.56A3.02 3.02 0 00.5 6.2 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.8 3.02 3.02 0 002.12 2.14c1.88.56 9.38.56 9.38.56s7.5 0 9.38-.56a3.02 3.02 0 002.12-2.14A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.8zM9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/></svg>
-        </a>
-        <a href="mailto:contact@kosmicworlds.com" aria-label="Email">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        </a>
+  <main id="main">
+    <section class="hero container" aria-labelledby="hero-title">
+      <p class="eyebrow">World action models</p>
+      <h1 id="hero-title">Action-conditioned<br>world models.</h1>
+      <div class="hero-bottom">
+        <p>We develop long-horizon, physically grounded world models for robotics and autonomous driving, generating future observations conditioned on an agent’s actions.</p>
+        <a class="text-link" href="/models/">Explore models <span aria-hidden="true">↗</span></a>
       </div>
-    </footer>
-  </div>
+      <div class="hero-film">
+        <div class="film-frames" aria-label="Three generated environments from Kosmic Worlds V1">
+          <img src="assets/images/v1-coast.webp?v=2" alt="Generated cliffside stairway overlooking the sea at dawn" width="720" height="720" fetchpriority="high">
+          <img src="assets/images/v1-interior.webp?v=2" alt="Generated home office with a desk, shelving, and a sunlit window" width="720" height="720">
+          <img src="assets/images/v1-waterfall.webp?v=2" alt="Generated forest waterfall and a path beside the water" width="720" height="720">
+        </div>
+        <div class="film-caption">
+          <span><span class="small-mark" aria-hidden="true"></span>Generated with Kosmic Worlds V1</span>
+          <a class="text-link" href="https://youtu.be/PgaZC5rolSA" target="_blank" rel="noopener noreferrer">Watch on YouTube <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
 
-  <script>
-    (function drawGalaxy() {
-      const canvas = document.getElementById("galaxy-canvas");
-      const size = 90;
-      canvas.width = size;
-      canvas.height = size;
-      const ctx = canvas.getContext("2d");
-      const cx = size / 2;
-      const cy = size / 2;
-      const colors = ["#FF6B9D", "#C471ED", "#12C2E9"];
-      ctx.clearRect(0, 0, size, size);
-      colors.forEach((color, arm) => {
-        const offset = (Math.PI * 2 / 3) * arm;
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 4.5;
-        ctx.lineCap = "round";
-        ctx.beginPath();
-        for (let i = 0; i < 100; i++) {
-          const t = i / 100;
-          const distance = t * (size / 2 - 2);
-          const angle = offset + t * Math.PI * 3;
-          const x = cx + Math.cos(angle) * distance;
-          const y = cy + Math.sin(angle) * distance;
-          if (i === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-        ctx.stroke();
-      });
-    })();
+    <section class="work container" id="work" aria-labelledby="work-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Our work</p>
+          <h2 id="work-title">World-model development.</h2>
+        </div>
+        <p class="section-intro">V1 is complete. V2 is in development,<br>with the driving-specific V2D variant planned.</p>
+      </div>
+      <article class="project v1-project" id="models" aria-labelledby="v1-title">
+        <div class="project-copy">
+          <p class="project-category">01 <span>Video World Model</span></p>
+          <h3 id="v1-title">Kosmic Worlds V1</h3>
+          <p class="project-deck">Our first video<br>world model.</p>
+          <p class="project-description">An autoregressive model trained on real video. The public demo shows generated sequences across outdoor environments, interiors, and weather conditions.</p>
+          <dl class="model-stats">
+            <div><dt>Parameters</dt><dd>1.6B</dd></div>
+            <div><dt>Training video</dt><dd>3,600 h</dd></div>
+          </dl>
+          <div class="project-actions">
+            <a class="text-link" href="/models/v1/">Model details <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <figure class="project-media v1-media">
+          <div class="video-embed video-embed-v1">
+            <iframe src="https://www.youtube.com/embed/PgaZC5rolSA?controls=1&amp;disablekb=0&amp;fs=1&amp;playsinline=1&amp;rel=0"
+              title="Kosmic Worlds V1 demo" width="1280" height="720" loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <figcaption class="video-caption"><span>Generated video · V1 demo</span><a href="https://youtu.be/PgaZC5rolSA" target="_blank" rel="noopener noreferrer">Watch on YouTube <span aria-hidden="true">↗</span></a></figcaption>
+        </figure>
+      </article>
 
-    (function bindCustomScroll() {
-      const viewportPadding = 28;
-      function scrollToTarget(targetId) {
-        const el = document.getElementById(targetId);
-        if (!el) return;
-        const rect = el.getBoundingClientRect();
-        const absoluteTop = window.scrollY + rect.top;
-        const availableHeight = window.innerHeight - viewportPadding * 2;
-        let targetTop;
-        if (rect.height < availableHeight) {
-          targetTop = absoluteTop - Math.max(viewportPadding, (window.innerHeight - rect.height) / 2);
-        } else {
-          targetTop = absoluteTop - viewportPadding;
-        }
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        window.scrollTo({ top: Math.max(0, Math.min(targetTop, maxScroll)), behavior: "smooth" });
-      }
-      document.querySelectorAll("[data-scroll-target]").forEach((link) => {
-        link.addEventListener("click", (event) => {
-          event.preventDefault();
-          scrollToTarget(link.dataset.scrollTarget);
-        });
-      });
-    })();
-  </script>
+      <article class="next-project" aria-labelledby="v2-title">
+        <div>
+          <p class="project-category">02 <span>Our Next-Generation World Model</span></p>
+          <h3 id="v2-title">Kosmic Worlds V2</h3>
+        </div>
+        <p>Currently in development, with a focus on action conditioning, longer rollouts, and physical consistency. V2D is the planned driving-specific variant.</p>
+        <a class="text-link" href="/models/v2/">V2 development <span aria-hidden="true">↗</span></a>
+      </article>
+
+      <article class="project pace-project" id="pace" aria-labelledby="pace-title">
+        <div class="project-copy">
+          <p class="project-category">03 <span>Physics-Aware Control Extraction from Egocentric Driving Video</span></p>
+          <h3 id="pace-title">Kosmic PACE</h3>
+          <p class="project-deck">Control data for<br>action conditioning.</p>
+          <p class="project-description">PACE is an internal physics-based tool for estimating vehicle controls from logged kinematics. It supports the preparation of action-conditioned training data for our world action models.</p>
+          <p class="project-description">The public demo compares its steering and pedal estimates with controls recorded by the vehicle.</p>
+          <div class="project-actions">
+            <a class="text-link" href="/pace/">About PACE <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <figure class="project-media">
+          <div class="video-embed video-embed-pace">
+            <iframe src="https://www.youtube.com/embed/2ZVLsziWVF4?controls=1&amp;disablekb=0&amp;fs=1&amp;playsinline=1&amp;rel=0"
+              title="Kosmic PACE demo" width="1280" height="720" loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <figcaption class="video-caption"><span>Public demonstration</span><div class="video-links"><a href="https://youtu.be/2ZVLsziWVF4" target="_blank" rel="noopener noreferrer">Watch on YouTube <span aria-hidden="true">↗</span></a><a href="https://youtu.be/JP7dGMqS2CE" target="_blank" rel="noopener noreferrer">Extended cut <span aria-hidden="true">↗</span></a></div></figcaption>
+        </figure>
+      </article>
+    </section>
+
+    <section class="approach" id="approach" aria-labelledby="approach-title">
+      <div class="container approach-inner">
+        <div>
+          <p class="eyebrow">Our approach</p>
+          <h2 id="approach-title">World models for<br>policy training.</h2>
+          <p class="approach-intro">Our work focuses on controllable generation, temporal consistency, and physical grounding.</p>
+          <a class="text-link approach-link" href="/approach/">Read our approach <span aria-hidden="true">↗</span></a>
+        </div>
+        <ol class="research-steps">
+          <li><span class="step-number" aria-hidden="true">01</span><div><h3>Action-conditioned generation</h3><p>Pair observations with control inputs so rollouts can be directed by a robot or driving policy.</p></div></li>
+          <li><span class="step-number" aria-hidden="true">02</span><div><h3>Long-horizon modeling</h3><p>Develop autoregressive models that retain scene state, object identity, and geometry across longer sequences.</p></div></li>
+          <li><span class="step-number" aria-hidden="true">03</span><div><h3>Physical grounding</h3><p>Use recorded motion, controls, and dynamics when preparing training data and evaluating generated rollouts.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="design-partners container" aria-labelledby="partners-title">
+      <div><p class="eyebrow">Design partnerships</p><h2 id="partners-title">Six design partners.</h2></div>
+      <div class="partners-copy"><p>Our design partners span electric trucking, radar, inspection, autonomous robotics, and robot foundation models.</p><a class="text-link" href="/partners/">Meet our design partners <span aria-hidden="true">↗</span></a></div>
+    </section>
+
+    <section class="contact container" id="contact" aria-labelledby="contact-title">
+      <div>
+        <p class="eyebrow">Work with us</p>
+        <h2 id="contact-title">Research and<br>partnerships.</h2>
+      </div>
+      <div class="contact-copy">
+        <p>Contact us about world-model development, robotics, or autonomous-driving applications.</p>
+        <a class="contact-email" href="mailto:contact@kosmicworlds.com">contact@kosmicworlds.com <span aria-hidden="true">↗</span></a>
+        <a class="quiet-link contact-page-link" href="/contact/">Contact page <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <a class="brand footer-brand" href="/" aria-label="Kosmic Worlds home"><img src="assets/images/kosmic-mark.svg" width="26" height="26" alt=""><span>Kosmic Worlds</span></a>
+    <span class="copyright">© 2026 Kosmic Worlds</span>
+    <div class="footer-links"><a href="https://www.youtube.com/@kosmicworlds1" target="_blank" rel="noopener noreferrer">YouTube <span aria-hidden="true">↗</span></a><a href="https://www.linkedin.com/company/kosmicworlds" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></div>
+  </footer>
+
 </body>
 </html>
