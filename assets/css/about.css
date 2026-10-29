@@ -1,0 +1,83 @@
+/* About: editorial layout using the site's shared type, colors, and spacing. */
+.about-hero { padding-block: 72px 0; }
+.about-hero > .eyebrow { margin-bottom: 28px; color: var(--body); }
+.about-hero-copy { display: grid; grid-template-columns: 1.3fr 1fr; gap: 80px; align-items: start; }
+.about-page h1 { font-size: clamp(50px, 5.5vw, 78px); line-height: 1.06; letter-spacing: -.055em; }
+.about-intro { padding-top: 3px; }
+.about-intro .about-lead { font-size: 20px; line-height: 1.55; color: var(--ink); letter-spacing: -.02em; }
+.about-intro > p + p { margin-top: 18px; font-size: 14px; line-height: 1.85; color: var(--body); }
+.about-intro .text-link { margin-top: 24px; }
+.about-visuals { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 46px; }
+.about-visuals figure { min-width: 0; }
+.about-visuals figure > a { display: block; overflow: hidden; background: var(--band); }
+.about-visuals img { width: 100%; height: auto; aspect-ratio: 32 / 27; object-fit: cover; }
+.about-visuals figure:nth-child(2) img { object-fit: contain; }
+.about-visuals figcaption { display: flex; justify-content: space-between; gap: 16px; margin-top: 13px; font-size: 10px; line-height: 1.7; color: var(--muted); }
+.about-visuals figcaption > span:first-child { color: var(--ink); font-weight: 500; }
+.about-work { padding-block: 85px 88px; }
+.about-section-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 40px; }
+.about-section-heading .eyebrow, .about-founder .eyebrow, .about-partners .eyebrow, .about-contact .eyebrow { margin-bottom: 22px; }
+.about-page h2 { font-size: clamp(30px, 3.2vw, 44px); }
+.about-section-heading > p { font-size: 14px; line-height: 1.85; color: var(--body); padding-top: 33px; }
+.about-project { display: grid; grid-template-columns: .95fr 1.3fr auto; gap: 45px; align-items: start; padding-block: 29px; border-top: 1px solid var(--rule); }
+.about-project:last-child { border-bottom: 1px solid var(--rule); }
+.about-project-title { display: flex; align-items: baseline; gap: 22px; }
+.about-project-number { font-size: 10px; color: var(--muted); }
+.about-project h3 { font-size: 20px; font-weight: 500; line-height: 1.45; letter-spacing: -.035em; }
+.about-project-description > p:not(.about-status) { margin-top: 11px; color: var(--body); font-size: 13px; line-height: 1.85; max-width: 450px; }
+.about-status { display: flex; align-items: center; gap: 9px; font-size: 10px; line-height: 1.8; color: var(--body); }
+.about-status > span { flex: 0 0 5px; width: 5px; height: 5px; border: 1px solid var(--ink); border-radius: 50%; background: var(--ink); }
+.about-status-planned > span { background: transparent; }
+.about-project > .quiet-link { padding-top: 2px; padding-bottom: 0; white-space: nowrap; font-size: 11px; color: var(--ink); }
+.about-founder-band { background: var(--band); }
+.about-founder { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; padding-block: 72px; }
+.about-founder h2 { font-size: clamp(38px, 4.2vw, 58px); letter-spacing: -.05em; }
+.about-founder-identity > p:last-child { font-size: 12px; color: var(--body); margin-top: 17px; }
+.about-founder-copy { padding-top: 36px; }
+.about-founder-lead { font-size: 21px; line-height: 1.5; letter-spacing: -.025em; max-width: 380px; }
+.about-founder-copy > p + p { font-size: 14px; line-height: 1.85; color: var(--body); margin-top: 20px; max-width: 460px; }
+.about-founder-copy .text-link { margin-top: 26px; }
+.about-partners { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; padding-block: 78px; }
+.about-partner-count { display: flex; gap: 14px; align-items: baseline; font-size: 14px; color: var(--body); }
+.about-partner-count > span { color: var(--ink); font-size: 56px; font-weight: 450; line-height: 1; letter-spacing: -.04em; }
+.about-partners-copy { padding-top: 6px; }
+.about-partners-copy > p + p { font-size: 14px; line-height: 1.85; color: var(--body); margin-top: 22px; max-width: 450px; }
+.about-partners-copy .text-link { margin-top: 25px; }
+.about-contact { display: flex; align-items: center; justify-content: space-between; gap: 60px; border-top: 1px solid var(--rule); padding-block: 65px 78px; }
+.about-contact h2 { font-size: clamp(28px, 2.65vw, 36px); }
+.about-contact p:not(.eyebrow) { color: var(--body); font-size: 13px; line-height: 1.85; max-width: 500px; margin-top: 20px; }
+.about-contact .text-link { flex-shrink: 0; }
+@media (max-width: 1100px) {
+  .about-hero-copy, .about-section-heading, .about-founder, .about-partners { gap: 46px; }
+  .about-intro .about-lead { font-size: 18px; }
+  .about-project { gap: 28px; grid-template-columns: .95fr 1.25fr auto; }
+  .about-project h3 { font-size: 18px; }
+  .about-project-title { gap: 16px; }
+}
+@media (max-width: 760px) {
+  .about-hero { padding-top: 44px; }
+  .about-hero > .eyebrow { margin-bottom: 23px; }
+  .about-hero-copy { grid-template-columns: 1fr; gap: 25px; }
+  .about-page h1 { font-size: clamp(39px, 8.6vw, 60px); }
+  .about-intro { max-width: 540px; padding-top: 0; }
+  .about-intro .about-lead { font-size: 18px; }
+  .about-intro > p + p { font-size: 13px; margin-top: 15px; }
+  .about-visuals { grid-template-columns: 1fr; gap: 24px; margin-top: 34px; }
+  .about-visuals figcaption { margin-top: 10px; font-size: 9px; }
+  .about-work { padding-block: 53px 52px; }
+  .about-section-heading { grid-template-columns: 1fr; gap: 23px; margin-bottom: 28px; }
+  .about-section-heading > p { padding-top: 0; font-size: 13px; }
+  .about-project { grid-template-columns: 1fr; gap: 18px; padding-block: 25px; }
+  .about-project h3 { font-size: 21px; }
+  .about-project-title { gap: 18px; }
+  .about-project-description { padding-left: 33px; }
+  .about-project > .quiet-link { padding-left: 33px; width: max-content; }
+  .about-founder, .about-partners { grid-template-columns: 1fr; gap: 27px; padding-block: 48px; }
+  .about-founder-copy, .about-partners-copy { padding-top: 0; }
+  .about-founder h2 { font-size: 44px; }
+  .about-founder-lead { font-size: 20px; }
+  .about-founder-copy > p + p, .about-partners-copy > p + p { font-size: 13px; }
+  .about-partner-count > span { font-size: 45px; }
+  .about-contact { display: block; padding-block: 46px 54px; }
+  .about-contact .text-link { margin-top: 27px; font-size: 12px; }
+}

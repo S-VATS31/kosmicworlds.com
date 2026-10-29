@@ -96,10 +96,12 @@ h2 { font-size: clamp(34px, 3.1vw, 46px); line-height: 1.15; font-weight: 450; l
 .model-stats > div { display: flex; flex-direction: column; }
 .model-stats dd { order: 1; font-size: 32px; line-height: 1.1; font-weight: 450; letter-spacing: -.045em; margin-bottom: 7px; }
 .model-stats dt { order: 2; font-size: 10px; color: var(--muted); }
-.next-project { display: grid; grid-template-columns: .84fr 1fr auto; align-items: center; gap: 56px; padding: 32px 0; border-block: 1px solid var(--rule); }
+.next-project { display: grid; grid-template-columns: .84fr 1.16fr; align-items: center; gap: 88px; padding: 32px 0; border-block: 1px solid var(--rule); }
+.next-project-details { min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.next-project .project-actions { margin-top: 26px; }
 .next-project .project-category { margin-bottom: 10px; }
 .next-project h3 { font-size: 23px; font-weight: 450; letter-spacing: -.04em; }
-.next-project > p { font-size: 13px; line-height: 1.8; color: var(--body); max-width: 410px; }
+.next-project-details > p { min-width: 0; flex: 1; font-size: 13px; line-height: 1.8; color: var(--body); max-width: 410px; }
 .next-project + .pace-project { border-top: 0; }
 .next-project .project-category { align-items: flex-start; }
 .video-embed { position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 200px; background: #151815; }
@@ -192,7 +194,8 @@ h2 { font-size: clamp(34px, 3.1vw, 46px); line-height: 1.15; font-weight: 450; l
   .project-deck { font-size: 30px; }
   .project-facts { grid-template-columns: 1fr; gap: 15px; }
   .approach-inner, .contact, .design-partners { gap: 56px; }
-  .next-project { gap: 30px; }
+  .next-project { gap: 45px; }
+  .next-project-details { gap: 24px; }
   .contact-email { font-size: 17px; gap: 17px; }
 }
 @media (max-width: 980px) {
@@ -236,7 +239,8 @@ h2 { font-size: clamp(34px, 3.1vw, 46px); line-height: 1.15; font-weight: 450; l
   .project-media figcaption { font-size: 9px; margin-top: 9px; }
   .play-control { bottom: 13px; left: 13px; padding: 8px 11px; font-size: 10px; }
   .next-project { grid-template-columns: 1fr; gap: 20px; padding-block: 28px 34px; }
-  .next-project > p { max-width: 520px; }
+  .next-project-details { display: block; }
+  .next-project-details > p { max-width: 520px; }
   .next-project .text-link { justify-self: start; }
   .approach { margin-top: 66px; }
   .approach-inner { grid-template-columns: 1fr; gap: 27px; padding-block: 46px; }

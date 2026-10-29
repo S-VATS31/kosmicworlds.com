@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
   <base href="/">
-  <title>Kosmic Worlds V1 — Kosmic Worlds preview</title>
+  <title>Kosmic Worlds V1 — Video World Model</title>
+  <meta name="description" content="The 1.6B-parameter Kosmic Worlds V1 video world model: demo, architecture, training details, and embedded technical appendix.">
+  <meta name="theme-color" content="#f7f7f3">
   <link rel="icon" type="image/svg+xml" href="assets/images/kosmic-mark.svg">
   <link rel="preload" href="assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=8">
+  <link rel="stylesheet" href="assets/css/models.css?v=3">
   <script src="assets/js/main.js" defer></script>
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<body class="model-pages">
+  <a class="skip-link" href="/models/v1/#main">Skip to content</a>
   <header class="site-header container">
     <a class="brand" href="/" aria-label="Kosmic Worlds home">
       <img src="assets/images/kosmic-mark.svg" width="34" height="34" alt="">
@@ -25,17 +27,99 @@
     <nav id="primary-nav" aria-label="Main navigation">
       <a href="/models/" aria-current="page">Models</a>
       <a href="/pace/">PACE</a>
-      <a href="/approach/">Approach</a>
       <a href="/mission/">Our Mission</a>
       <a href="/about/">About</a>
       <a class="nav-contact" href="/contact/">Contact <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
-  <main class="container route-preview" id="main">
-    <p class="eyebrow">Page route reserved</p>
-    <h1>Kosmic Worlds V1</h1>
-    <p>This page is reserved for the next stage of the website. Only the homepage has been designed in this preview.</p>
-    <a class="text-link" href="/">Return to homepage <span aria-hidden="true">↗</span></a>
+<nav class="model-subnav container" aria-label="Model pages"><a href="/models/">All models</a><a href="/models/v1/" aria-current="page">V1</a><a href="/models/v2/">V2</a></nav>
+
+  <main class="models-main" id="main">
+    <section class="model-hero model-hero-with-media container" aria-labelledby="model-title">
+      <div class="model-hero-copy">
+        <p class="model-status"><span class="status-dot" aria-hidden="true"></span>Video World Model · V1</p>
+        <h1 id="model-title">Kosmic Worlds V1</h1>
+        <p class="model-lead">Our first video world model: a 1.6B-parameter transformer that predicts future video in a compressed latent space.</p>
+        <p class="model-hero-detail">Trained on real egocentric video. Conditioned on text, images, videos, and learned latent actions.</p>
+        <div class="model-actions"><a class="text-link" href="/models/v1/#technical-appendix" >Read the technical appendix <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <figure class="model-demo" id="demo">
+      <div class="video-embed video-embed-v1">
+        <iframe src="https://www.youtube.com/embed/PgaZC5rolSA?controls=1&amp;disablekb=0&amp;fs=1&amp;playsinline=1&amp;rel=0"
+          title="Kosmic Worlds V1 demo" width="1280" height="720" loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <figcaption><span>Generated video · Kosmic Worlds V1</span><a href="https://youtu.be/PgaZC5rolSA" target="_blank" rel="noopener noreferrer">Watch on YouTube <span aria-hidden="true">↗</span></a></figcaption>
+    </figure>
+    </section>
+
+    <dl class="model-key-facts container" aria-label="V1 training facts">
+      <div><dt>Parameters</dt><dd>1.6B</dd></div>
+      <div><dt>Training video, approximately</dt><dd>3,600 h</dd></div>
+      <div><dt>Latent tokens processed</dt><dd>101B</dd></div>
+      <div><dt>Training hardware</dt><dd>8x B200s</dd></div>
+    </dl>
+
+    <section class="model-section container" aria-labelledby="architecture-title">
+      <div class="model-section-heading"><div><p class="eyebrow">Architecture</p><h2 id="architecture-title">Video, modeled<br>in latent space.</h2></div><p>V1 separates visual compression, dynamics prediction, and reconstruction. A pretrained tokenizer turns video into discrete tokens; our transformer predicts the next latent frame.</p></div>
+      <ol class="model-pipeline" aria-label="V1 video generation pipeline">
+        <li><span class="pipeline-index">01</span><h3>Visual context</h3><p>An initial image or video, with optional text conditioning.</p></li>
+        <li><span class="pipeline-index">02</span><h3>Tokenize</h3><p>The tokenizer encoder compresses video into a 32 × 32 token grid.</p></li>
+        <li><span class="pipeline-index">03</span><h3>Predict</h3><p>A causal transformer predicts all 1,024 tokens of the next latent frame in parallel.</p></li>
+        <li><span class="pipeline-index">04</span><h3>Decode</h3><p>The tokenizer decoder reconstructs the generated tokens as RGB video.</p></li>
+      </ol>
+      <div class="model-technical-columns">
+        <div><h3>Spatiotemporal dynamics</h3><p>The model uses 32 transformer layers, factorized spatial and temporal attention, grouped-query attention, and three-dimensional rotary position embeddings. Language embeddings enter through gated cross-attention.</p></div>
+        <div><h3>Learned latent actions</h3><p>A separate pathway quantizes transitions between frames into 16 learned action codes. These codes can condition generation, but do not consistently correspond to controllable physical actions.</p></div>
+      </div>
+    </section>
+
+    <section class="model-band" aria-labelledby="inputs-title"><div class="container model-band-inner">
+      <div><p class="eyebrow">Inference</p><h2 id="inputs-title">Three ways to<br>start a generation.</h2><p class="model-section-note">Each path feeds visual context into the same V1 dynamics model.</p></div>
+      <ol class="model-detail-list">
+        <li><span>01</span><div><h3>Text</h3><p>Qwen2-1.5B-Instruct expands the prompt; FLUX.1 [schnell] generates the initial frame. CLIP ViT-L/14 encodes the original prompt for text conditioning.</p></div></li>
+        <li><span>02</span><div><h3>Image</h3><p>The image becomes the initial frame. BLIP-2 produces a caption, which CLIP encodes for language conditioning.</p></div></li>
+        <li><span>03</span><div><h3>Video</h3><p>The input video is tokenized directly. V1’s video-input path currently operates without text conditioning.</p></div></li>
+      </ol>
+    </div></section>
+
+    <section class="model-section container" aria-labelledby="specifications-title">
+      <div class="model-section-heading"><div><p class="eyebrow">Training and configuration</p><h2 id="specifications-title">The V1 training run.</h2></div><p>Trained on approximately 3,600 hours of Ego4D video using 8x B200s. Training took approximately 125 hours, totaling 1,000 GPU-hours. The run processed 1.93 passes over the tokenized dataset.</p></div>
+      <dl class="model-specifications">
+        <div><dt>Native generation resolution</dt><dd>256 × 256 pixels</dd></div><div><dt>Video frame rate</dt><dd>16 fps</dd></div>
+        <div><dt>Training clip length</dt><dd>8 seconds</dd></div><div><dt>Transformer layers / width</dt><dd>32 / 1,512</dd></div>
+        <div><dt>Discrete token vocabulary</dt><dd>64,000</dd></div><div><dt>Learned action codes</dt><dd>16</dd></div>
+      </dl>
+      <p class="model-footnote">Configuration and training figures are documented in the technical appendix, Sections 3–5.</p>
+    </section>
+
+    <section class="model-section model-output-section container" aria-labelledby="outputs-title">
+      <div class="model-section-heading"><div><p class="eyebrow">Selected generations</p><h2 id="outputs-title">Scenes generated by V1.</h2></div><p>Selected V1 frames showing roads, parked vehicles, and outdoor environments at the model’s native 256 × 256 resolution.</p></div>
+      <div class="model-output-grid">
+        <figure><img src="assets/images/v1/tree-lined-road.png" width="256" height="256" alt="V1-generated road lined with trees" loading="lazy"><figcaption>Tree-lined road</figcaption></figure>
+        <figure><img src="assets/images/v1/shaded-parking.png" width="256" height="256" alt="V1-generated parked cars beneath a large tree" loading="lazy"><figcaption>Parked vehicles in shade</figcaption></figure>
+        <figure><img src="assets/images/v1/city-street.png" width="256" height="256" alt="V1-generated street with parked vehicles" loading="lazy"><figcaption>Urban street</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="model-band" aria-labelledby="limitations-title"><div class="container model-band-inner">
+      <div><p class="eyebrow">Results and limitations</p><h2 id="limitations-title">An early foundation.</h2><p class="model-section-note">V1 established an end-to-end training and inference stack. Its limitations define the next stage of development.</p><a class="text-link" href="/models/v2/" >From V1 to V2 <span aria-hidden="true">↗</span></a></div>
+      <div class="model-observations">
+        <div><h3>Short-horizon scene persistence</h3><p>The strongest generations preserve layout and lighting for approximately 3–5 seconds. This varies across prompts and decoding settings; longer rollouts can blur or lose coherence.</p></div>
+        <div><h3>Inconsistent action control</h3><p>The latent-action pathway functions, but action codes are not reliable semantic or physical controls.</p></div>
+        <div><h3>Resolution and data constraints</h3><p>Native output is 256 × 256. Minimal filtering of the training videos leaves dark, repetitive, low-motion, and degraded clips in the data.</p></div>
+      </div>
+    </div></section>
+
+    <section class="model-section appendix-section container" id="technical-appendix" aria-labelledby="appendix-title">
+      <div class="model-section-heading"><div><p class="eyebrow">Technical documentation</p><h2 id="appendix-title">V1 technical appendix.</h2></div><div><p>Architecture, training setup, loss curves, inference, qualitative results, and limitations.</p><p class="document-meta">October 2026 · 17 pages · PDF · 312 KB</p></div></div>
+      <div class="document-actions"><a class="text-link" href="assets/documents/v1-technical-appendix.pdf" target="_blank" rel="noopener">Open PDF in a new tab <span aria-hidden="true">↗</span></a><a class="quiet-link" href="assets/documents/v1-technical-appendix.pdf" download>Download PDF <span aria-hidden="true">↗</span></a></div>
+      <iframe class="appendix-viewer" src="assets/documents/v1-technical-appendix-viewer.html" title="Kosmic Worlds V1 Technical Appendix — 17-page PDF" loading="lazy"></iframe>
+      <p class="model-footnote">You can also open or download the PDF using the links above.</p>
+    </section>
+
+    <section class="model-next container"><div><p class="eyebrow">Next generation</p><h2>Building on V1.</h2></div><div><p>V2 development focuses on physically grounded actions, longer context, and visual refinement.</p><a class="text-link" href="/models/v2/" >Explore Kosmic Worlds V2 <span aria-hidden="true">↗</span></a></div></section>
   </main>
   <footer class="site-footer container">
     <a class="brand footer-brand" href="/" aria-label="Kosmic Worlds home"><img src="assets/images/kosmic-mark.svg" width="26" height="26" alt=""><span>Kosmic Worlds</span></a>

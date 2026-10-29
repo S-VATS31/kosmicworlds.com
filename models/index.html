@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
   <base href="/">
-  <title>Models — Kosmic Worlds preview</title>
+  <title>Models — Kosmic Worlds</title>
+  <meta name="description" content="Explore Kosmic Worlds V1 and the V2 World Action Model in development.">
+  <meta name="theme-color" content="#f7f7f3">
   <link rel="icon" type="image/svg+xml" href="assets/images/kosmic-mark.svg">
   <link rel="preload" href="assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=8">
+  <link rel="stylesheet" href="assets/css/models.css?v=3">
   <script src="assets/js/main.js" defer></script>
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<body class="model-pages">
+  <a class="skip-link" href="/models/#main">Skip to content</a>
   <header class="site-header container">
     <a class="brand" href="/" aria-label="Kosmic Worlds home">
       <img src="assets/images/kosmic-mark.svg" width="34" height="34" alt="">
@@ -25,17 +27,52 @@
     <nav id="primary-nav" aria-label="Main navigation">
       <a href="/models/" aria-current="page">Models</a>
       <a href="/pace/">PACE</a>
-      <a href="/approach/">Approach</a>
       <a href="/mission/">Our Mission</a>
       <a href="/about/">About</a>
       <a class="nav-contact" href="/contact/">Contact <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
-  <main class="container route-preview" id="main">
-    <p class="eyebrow">Page route reserved</p>
-    <h1>Models</h1>
-    <p>This page is reserved for the next stage of the website. Only the homepage has been designed in this preview.</p>
-    <a class="text-link" href="/">Return to homepage <span aria-hidden="true">↗</span></a>
+<nav class="model-subnav container" aria-label="Model pages"><a href="/models/" aria-current="page">All models</a><a href="/models/v1/">V1</a><a href="/models/v2/">V2</a></nav>
+
+  <main class="models-main" id="main">
+    <section class="models-intro container">
+      <p class="eyebrow">Our models</p>
+      <h1>World models.</h1>
+      <p class="model-lead">We develop models that generate future observations from visual context and actions. V1 established our video-modeling stack. V2 builds toward longer, more controllable rollouts.</p>
+    </section>
+
+    <section class="model-directory container" aria-label="Model family">
+      <article class="directory-project" aria-labelledby="directory-v1">
+        <div class="directory-copy">
+          <p class="model-status"><span class="status-dot" aria-hidden="true"></span>V1 · Completed training run</p>
+          <h2 id="directory-v1">Kosmic Worlds V1</h2>
+          <p class="directory-deck">Our first video world model.</p>
+          <p>A causal spatiotemporal transformer trained on egocentric video. Generate from text, an image, or a video, with a learned latent-action pathway.</p>
+          <dl class="directory-stats"><div><dt>Parameters</dt><dd>1.6B</dd></div><div><dt>Training video</dt><dd>3,600 h</dd></div><div><dt>Native output</dt><dd>256 × 256</dd></div></dl>
+          <div class="model-actions"><a class="text-link" href="/models/v1/" >Explore V1 <span aria-hidden="true">↗</span></a><a class="quiet-link" href="/models/v1/#technical-appendix" >Technical appendix <span aria-hidden="true">↗</span></a></div>
+        </div>
+        <figure class="directory-image"><a href="/models/v1/" aria-label="Explore Kosmic Worlds V1"><img src="assets/images/v1-train-platform.webp" width="960" height="720" alt="A rainy train platform at night, generated with Kosmic Worlds V1"></a><figcaption>Generated with Kosmic Worlds V1</figcaption></figure>
+      </article>
+
+      <article class="directory-project" aria-labelledby="directory-v2">
+        <div class="directory-copy">
+          <p class="model-status"><span class="status-dot status-outline" aria-hidden="true"></span>V2 · In development</p>
+          <h2 id="directory-v2">Kosmic Worlds V2</h2>
+          <p class="directory-deck">Our next-generation World Action Model.</p>
+          <p>Development focuses on reliable action-conditioning, long-horizon simulation, and physical grounding. Planned variants include V2D for driving and V2R for robotics.</p>
+          <div class="model-actions"><a class="text-link" href="/models/v2/" >Explore V2 <span aria-hidden="true">↗</span></a></div>
+        </div>
+        <div class="directory-research" aria-label="V2 development priorities">
+          <p class="eyebrow">Development priorities</p>
+          <ol><li><span>01</span><div><h3>Physical action conditioning</h3><p>Continuous controls with meaning in the real world.</p></div></li><li><span>02</span><div><h3>Longer temporal context</h3><p>Scene information retained across a rollout.</p></div></li><li><span>03</span><div><h3>Visual refinement</h3><p>Autoregressive generation with flow matching.</p></div></li></ol>
+        </div>
+      </article>
+    </section>
+
+    <section class="model-next container">
+      <div><p class="eyebrow">Research and partnerships</p><h2>Building toward useful simulation.</h2></div>
+      <div><p>We work with robotics and autonomous-vehicle teams on the data and control requirements for world-model training.</p><a class="text-link" href="mailto:contact@kosmicworlds.com" >Contact us <span aria-hidden="true">↗</span></a></div>
+    </section>
   </main>
   <footer class="site-footer container">
     <a class="brand footer-brand" href="/" aria-label="Kosmic Worlds home"><img src="assets/images/kosmic-mark.svg" width="26" height="26" alt=""><span>Kosmic Worlds</span></a>

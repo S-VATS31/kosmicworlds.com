@@ -1,0 +1,79 @@
+/* Contact: shares the site's light palette and self-hosted Inter typography. */
+.contact-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; padding-block: 74px 72px; }
+.contact-hero .eyebrow { color: var(--body); margin-bottom: 29px; }
+.contact-page h1 { font-size: clamp(49px, 5.5vw, 78px); line-height: 1.07; letter-spacing: -.055em; }
+.contact-primary { padding-top: 48px; }
+.contact-lead { font-size: 21px; line-height: 1.55; letter-spacing: -.025em; max-width: 430px; }
+.contact-address { display: inline-flex; align-items: center; justify-content: space-between; gap: 30px; border-bottom: 1px solid var(--ink); padding-bottom: 12px; margin-top: 29px; font-size: clamp(19px, 2vw, 28px); line-height: 1.35; font-weight: 450; letter-spacing: -.035em; }
+.contact-address > span { font-size: 22px; font-weight: 400; }
+.contact-address:hover > span { transform: translate(2px, -2px); }
+.contact-email-note { font-size: 12px; line-height: 1.85; color: var(--body); max-width: 380px; margin-top: 20px; }
+.contact-partnerships { border-top: 1px solid var(--rule); padding-block: 67px 69px; }
+.contact-section-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: start; margin-bottom: 37px; }
+.contact-section-heading .eyebrow, .contact-social-section .eyebrow, .contact-resources .eyebrow { margin-bottom: 22px; }
+.contact-page h2 { font-size: clamp(30px, 3.15vw, 44px); }
+.contact-section-heading h2 { max-width: 480px; }
+.contact-section-heading > p { color: var(--body); font-size: 14px; line-height: 1.85; padding-top: 33px; }
+.contact-partnership-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; }
+.contact-partnership-options article { display: flex; flex-direction: column; align-items: start; border-top: 1px solid var(--rule); padding-top: 23px; }
+.contact-option-number { font-size: 10px; color: var(--muted); line-height: 1.5; margin-bottom: 19px; }
+.contact-partnership-options h3 { font-size: 21px; font-weight: 450; line-height: 1.4; letter-spacing: -.03em; }
+.contact-partnership-options article > p { font-size: 13px; line-height: 1.85; color: var(--body); margin-block: 15px 25px; max-width: 350px; }
+.contact-partnership-options .text-link { font-size: 11px; gap: 22px; margin-top: auto; }
+.contact-partners-link { display: flex; align-items: baseline; justify-content: space-between; gap: 30px; border-top: 1px solid var(--rule); padding-top: 23px; margin-top: 34px; }
+.contact-partners-link > p { font-size: 11px; line-height: 1.8; color: var(--muted); }
+.contact-partners-link .quiet-link { font-size: 11px; padding-bottom: 0; flex-shrink: 0; }
+.contact-social-band { background: var(--band); }
+.contact-social-section { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; padding-block: 66px; }
+.contact-social-section > div > p:not(.eyebrow) { color: var(--body); font-size: 14px; line-height: 1.85; max-width: 365px; margin-top: 23px; }
+.contact-social-section > div > .text-link { margin-top: 26px; }
+.contact-social-list { list-style: none; padding: 0; margin: 0; }
+.contact-social-list li { border-top: 1px solid #cdd1c8; }
+.contact-social-list li:last-child { border-bottom: 1px solid #cdd1c8; }
+.contact-social-list a { display: grid; grid-template-columns: 1fr 1.1fr 20px; align-items: center; gap: 15px; padding-block: 20px; }
+.contact-social-list a:hover .contact-social-platform { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; }
+.contact-social-platform { font-size: 19px; font-weight: 450; letter-spacing: -.025em; line-height: 1.5; }
+.contact-social-handle { color: var(--body); font-size: 12px; line-height: 1.7; }
+.contact-social-arrow { font-size: 18px; font-weight: 400; justify-self: end; }
+.contact-resources { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; padding-block: 64px 77px; }
+.contact-resources h2 { font-size: clamp(29px, 2.7vw, 38px); }
+.contact-resources > div > p:not(.eyebrow) { color: var(--body); font-size: 13px; line-height: 1.85; max-width: 430px; margin-top: 20px; }
+.contact-resource-links { display: flex; flex-direction: column; padding-top: 11px; }
+.contact-resource-links a { display: flex; justify-content: space-between; gap: 25px; align-items: center; border-bottom: 1px solid var(--rule); padding-block: 18px; font-size: 14px; }
+.contact-resource-links a:first-child { border-top: 1px solid var(--rule); }
+.contact-resource-links a > span { font-size: 18px; }
+.contact-resource-links a:hover { color: var(--body); }
+@media (max-width: 1100px) {
+  .contact-hero, .contact-section-heading, .contact-social-section, .contact-resources { gap: 48px; }
+  .contact-hero { padding-top: 61px; }
+  .contact-primary { padding-top: 44px; }
+  .contact-partnership-options { gap: 27px; }
+  .contact-partnership-options h3 { font-size: 19px; }
+}
+@media (max-width: 760px) {
+  .contact-hero { grid-template-columns: 1fr; gap: 27px; padding-block: 44px 45px; }
+  .contact-hero .eyebrow { margin-bottom: 23px; }
+  .contact-page h1 { font-size: clamp(42px, 9.5vw, 62px); }
+  .contact-primary { padding-top: 0; }
+  .contact-lead { font-size: 19px; }
+  .contact-address { font-size: clamp(18px, 5vw, 25px); gap: 18px; margin-top: 24px; }
+  .contact-address > span { font-size: 20px; }
+  .contact-email-note { font-size: 12px; margin-top: 17px; }
+  .contact-partnerships { padding-block: 45px 48px; }
+  .contact-section-heading, .contact-partnership-options, .contact-social-section, .contact-resources { grid-template-columns: 1fr; gap: 26px; }
+  .contact-section-heading { margin-bottom: 29px; }
+  .contact-section-heading > p { padding-top: 0; font-size: 13px; }
+  .contact-partnership-options { gap: 29px; }
+  .contact-option-number { margin-bottom: 14px; }
+  .contact-partnership-options h3 { font-size: 23px; }
+  .contact-partnership-options article > p { max-width: 520px; margin-block: 13px 20px; }
+  .contact-partners-link { display: block; margin-top: 29px; padding-top: 20px; }
+  .contact-partners-link .quiet-link { margin-top: 15px; }
+  .contact-social-section { padding-block: 45px; gap: 34px; }
+  .contact-social-section > div > p:not(.eyebrow) { font-size: 13px; }
+  .contact-social-list a { grid-template-columns: .85fr 1.15fr 18px; gap: 12px; padding-block: 18px; }
+  .contact-social-platform { font-size: 18px; }
+  .contact-social-handle { font-size: 11px; }
+  .contact-resources { padding-block: 46px 54px; gap: 26px; }
+  .contact-resource-links { padding-top: 0; }
+}

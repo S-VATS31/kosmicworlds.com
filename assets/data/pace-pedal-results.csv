@@ -1,0 +1,8 @@
+dataset,scored_frames,throttle_mae_pp,throttle_rmse_pp,brake_mae_pp,brake_rmse_pp,speed_scope,source
+A2D2,65371,2.51,4.51,,,all speeds,"PACE public overview, Table 2"
+comma2k19,2360839,7.21,10.17,,,all speeds,"PACE public overview, Table 2"
+Yaak L2D,24885560,5.05,8.37,1.95,5.15,all speeds,"PACE public overview, Table 2"
+ZOD,351055,7.71,11.54,,,all speeds,"PACE public overview, Table 2"
+Udacity Self-Driving Car Dataset,976609,4.36,6.78,,,all speeds,"PACE public overview, Table 2"
+RoboBus,847852,9.96,17.01,,,all speeds,"PACE public overview, Table 2"
+VTTI CONOPS,39765,9.1,16.15,,,all speeds,"PACE public overview, Table 2"

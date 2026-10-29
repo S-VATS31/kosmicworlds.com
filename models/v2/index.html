@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
   <base href="/">
-  <title>Kosmic Worlds V2 — Kosmic Worlds preview</title>
+  <title>Kosmic Worlds V2 — World Action Model</title>
+  <meta name="description" content="Our next-generation World Action Model, in development: physically grounded actions, longer temporal context, and visual refinement.">
+  <meta name="theme-color" content="#f7f7f3">
   <link rel="icon" type="image/svg+xml" href="assets/images/kosmic-mark.svg">
   <link rel="preload" href="assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=8">
+  <link rel="stylesheet" href="assets/css/models.css?v=3">
   <script src="assets/js/main.js" defer></script>
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<body class="model-pages">
+  <a class="skip-link" href="/models/v2/#main">Skip to content</a>
   <header class="site-header container">
     <a class="brand" href="/" aria-label="Kosmic Worlds home">
       <img src="assets/images/kosmic-mark.svg" width="34" height="34" alt="">
@@ -25,17 +27,56 @@
     <nav id="primary-nav" aria-label="Main navigation">
       <a href="/models/" aria-current="page">Models</a>
       <a href="/pace/">PACE</a>
-      <a href="/approach/">Approach</a>
       <a href="/mission/">Our Mission</a>
       <a href="/about/">About</a>
       <a class="nav-contact" href="/contact/">Contact <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
-  <main class="container route-preview" id="main">
-    <p class="eyebrow">Page route reserved</p>
-    <h1>Kosmic Worlds V2</h1>
-    <p>This page is reserved for the next stage of the website. Only the homepage has been designed in this preview.</p>
-    <a class="text-link" href="/">Return to homepage <span aria-hidden="true">↗</span></a>
+<nav class="model-subnav container" aria-label="Model pages"><a href="/models/">All models</a><a href="/models/v1/">V1</a><a href="/models/v2/" aria-current="page">V2</a></nav>
+
+  <main class="models-main" id="main">
+    <section class="model-hero model-hero-v2 container" aria-labelledby="model-title">
+      <div class="model-hero-copy"><p class="model-status"><span class="status-dot status-outline" aria-hidden="true"></span>World Action Model · In development</p><h1 id="model-title">Kosmic Worlds V2</h1><p class="model-lead">Our next-generation world action model, designed for action-conditioned generation over longer horizons.</p><p class="model-hero-detail">Building on V1’s training and inference stack, with physically grounded controls, longer context, and a hybrid generation architecture.</p><div class="model-actions"><a class="text-link" href="/models/v2/#partnerships" >Discuss V2 with us <span aria-hidden="true">↗</span></a></div></div>
+      <aside class="development-summary" aria-label="V2 development status"><p class="eyebrow">Current status</p><h2>In development.</h2><p>V2 is the next stage of our model research. The architecture and capabilities below describe the development direction.</p><dl><div><dt>Foundation</dt><dd>V1 video-modeling stack</dd></div><div><dt>Focus</dt><dd>Reliable action-conditioning, long-horizon simulation, and physical grounding</dd></div><div><dt>Driving variant · Planned</dt><dd>V2D</dd></div><div><dt>Robotics variant · Planned</dt><dd>V2R</dd></div></dl></aside>
+    </section>
+
+    <section class="model-section v2-priorities container" aria-labelledby="priorities-title">
+      <div class="model-section-heading"><div><p class="eyebrow">Development priorities</p><h2 id="priorities-title">What changes in V2.</h2></div></div>
+      <ol class="development-list">
+        <li><span class="development-number">01</span><h3>Physically grounded actions</h3><div><p>Condition generation on actuator-level actions. V2D is planned around steering wheel angle, throttle, and brake inputs. V2R is planned around joint angles, velocities, trajectories, and torques.</p><span class="development-label">Action conditioning</span></div></li>
+        <li><span class="development-number">02</span><h3>Longer temporal context</h3><div><p>Train on substantially longer sequences and develop a persistent representation of the world, so earlier scene information remains available during extended rollouts.</p><span class="development-label">Long-horizon consistency</span></div></li>
+        <li><span class="development-number">03</span><h3>Autoregression with flow matching</h3><div><p>Combine causal autoregressive generation with a flow-matching objective for visual refinement. This addresses the blurring and accumulated prediction errors observed in V1.</p><span class="development-label">Visual quality</span></div></li>
+        <li><span class="development-number">04</span><h3>Stronger data preparation</h3><div><p>Improve filtering before tokenization, increase native training resolution, and prepare action-aligned video data for domain-specific training.</p><span class="development-label">Training data</span></div></li>
+      </ol>
+      <p class="model-footnote">These are development goals. V1 results are reported separately on the V1 page and in its technical appendix.</p>
+    </section>
+
+    <section class="model-band" aria-labelledby="conditioning-title"><div class="container v2-conditioning">
+      <div><p class="eyebrow">Action-conditioned generation</p><h2 id="conditioning-title">Observations and actions,<br>modeled together.</h2><p class="model-section-note">A world action model is intended to predict how a scene changes under a supplied action sequence. This supports rollouts directed by a robot or driving policy.</p></div>
+      <div class="conditioning-diagram" role="img" aria-label="How V2 is conditioned: past frames and a scene description, plus actuator-level actions such as steering, throttle, brake, and joint commands, condition the model in development. Future frames support policy training data.">
+        <div class="conditioning-inputs"><span>Past frames + scene description</span><span>Actuator-level actions<small>steering, throttle, brake · joint commands</small></span></div>
+        <div class="conditioning-arrow" aria-hidden="true">↓</div>
+        <div class="conditioning-model"><small>Model in development</small><strong>Kosmic Worlds V2</strong></div>
+        <div class="conditioning-arrow" aria-hidden="true">↓</div><div class="conditioning-output">Future frames</div>
+        <div class="conditioning-arrow" aria-hidden="true">↓</div><div class="conditioning-output">Policy training data</div>
+        <p>How V2 is conditioned</p>
+      </div>
+    </div></section>
+
+    <section class="model-section container" aria-labelledby="family-title">
+      <div class="model-section-heading"><div><p class="eyebrow">Model family</p><h2 id="family-title">A base model.<br>Domain-specific training.</h2></div><p>V2 is being developed as the shared foundation. Fine-tuned variants will adapt that foundation to the observations and control inputs of a particular domain.</p></div>
+      <div class="variant-list">
+        <article><div><p class="model-status">Base model · In development</p><h3>Kosmic Worlds V2</h3></div><p>General world modeling with action-conditioned generation, temporal context, and physical grounding as core research priorities.</p></article>
+        <article><div><p class="model-status">Driving variant · Planned</p><h3>Kosmic Worlds V2D</h3></div><p>A driving-specific fine-tune intended for generating synthetic training data for E2E driving policies and closed-loop simulation.</p></article>
+        <article><div><p class="model-status">Robotics variant · Planned</p><h3>Kosmic Worlds V2R</h3></div><p>A robotics-specific fine-tune intended for action-conditioned rollouts, synthetic policy training data, and closed-loop simulation, using joint angles, velocities, trajectories, and torques.</p></article>
+      </div>
+    </section>
+
+    <section class="model-section pace-connection container" aria-labelledby="pace-connection-title">
+      <div><p class="eyebrow">Scalable action labeling</p><h2 id="pace-connection-title">PACE supports<br>action conditioning.</h2></div><div><p>Kosmic PACE is our internal physics-based control-extraction tool. It estimates steering and pedal inputs from egocentric driving video to help prepare action labels for model training.</p><p>The public demonstration compares these estimates with recorded vehicle controls.</p><div class="model-actions"><a class="text-link" href="/pace/" >Explore Kosmic PACE <span aria-hidden="true">↗</span></a><a class="quiet-link" href="https://youtu.be/2ZVLsziWVF4" target="_blank" rel="noopener noreferrer">Watch the demo <span aria-hidden="true">↗</span></a></div></div>
+    </section>
+
+    <section class="model-next container" id="partnerships" aria-labelledby="partnerships-title"><div><p class="eyebrow">Research and partnerships</p><h2 id="partnerships-title">Work with us on V2.</h2></div><div><p>For technical discussions, design partnerships, and robotics or autonomous-driving applications, contact our team.</p><a class="text-link" href="mailto:contact@kosmicworlds.com" >contact@kosmicworlds.com <span aria-hidden="true">↗</span></a></div></section>
   </main>
   <footer class="site-footer container">
     <a class="brand footer-brand" href="/" aria-label="Kosmic Worlds home"><img src="assets/images/kosmic-mark.svg" width="26" height="26" alt=""><span>Kosmic Worlds</span></a>

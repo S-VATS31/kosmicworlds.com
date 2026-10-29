@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kosmic PACE Public Overview</title>
+  <link rel="stylesheet" href="../css/pdf-reader.css?v=1">
+  <script type="module" src="../js/pdf-reader.js?v=2"></script>
+</head>
+<body data-pdf="pace-technical-appendix.pdf?v=82e0c896e6f5">
+  <header class="reader-toolbar" aria-label="PDF controls">
+    <div class="reader-navigation">
+      <button id="previous-page" type="button" disabled aria-label="Previous page">←</button>
+      <label for="page-number">Page</label>
+      <input id="page-number" type="number" min="1" value="1" inputmode="numeric" aria-label="Page number" disabled>
+      <span id="page-count">of 7</span>
+      <button id="next-page" type="button" disabled aria-label="Next page">→</button>
+    </div>
+    <div class="reader-tools">
+      <select id="zoom" aria-label="PDF zoom" disabled><option value="fit">Fit width</option><option value="1">100%</option><option value="1.25">125%</option><option value="1.5">150%</option></select>
+      <a href="pace-technical-appendix.pdf?v=82e0c896e6f5" download>Download <span aria-hidden="true">↓</span></a>
+    </div>
+  </header>
+  <main id="page-scroll" tabindex="0" aria-label="Technical appendix page">
+    <p id="reader-status" role="status">Loading technical appendix…</p>
+    <canvas id="pdf-page" role="img" aria-label="Technical appendix, page 1" hidden></canvas>
+    <div id="page-text" class="reader-sr-only" role="document" aria-label="Current PDF page text"></div>
+    <noscript><p>JavaScript is needed for this embedded reader. <a href="pace-technical-appendix.pdf?v=82e0c896e6f5">Open the PDF</a>.</p></noscript>
+  </main>
+</body>
+</html>

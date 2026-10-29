@@ -8,7 +8,7 @@
   <title>Kosmic Worlds — Action-conditioned world models</title>
   <link rel="icon" type="image/svg+xml" href="assets/images/kosmic-mark.svg">
   <link rel="preload" href="assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=6">
+  <link rel="stylesheet" href="assets/css/styles.css?v=8">
   <script src="assets/js/main.js" defer></script>
 </head>
 <body>
@@ -25,7 +25,6 @@
     <nav id="primary-nav" aria-label="Main navigation">
       <a href="/models/">Models</a>
       <a href="/pace/">PACE</a>
-      <a href="/approach/">Approach</a>
       <a href="/mission/">Our Mission</a>
       <a href="/about/">About</a>
       <a class="nav-contact" href="/contact/">Contact <span aria-hidden="true">↗</span></a>
@@ -59,7 +58,7 @@
           <p class="eyebrow">Our work</p>
           <h2 id="work-title">World-model development.</h2>
         </div>
-        <p class="section-intro">V1 is complete. V2 is in development,<br>with the driving-specific V2D variant planned.</p>
+        <p class="section-intro">V1 is complete. V2 is in development,<br>with V2D for driving and V2R for robotics planned.</p>
       </div>
       <article class="project v1-project" id="models" aria-labelledby="v1-title">
         <div class="project-copy">
@@ -90,9 +89,13 @@
         <div>
           <p class="project-category">02 <span>Our Next-Generation World Model</span></p>
           <h3 id="v2-title">Kosmic Worlds V2</h3>
+          <div class="project-actions">
+            <a class="text-link" href="/models/v2/">V2 Development <span aria-hidden="true">↗</span></a>
+          </div>
         </div>
-        <p>Currently in development, with a focus on action conditioning, longer rollouts, and physical consistency. V2D is the planned driving-specific variant.</p>
-        <a class="text-link" href="/models/v2/">V2 development <span aria-hidden="true">↗</span></a>
+        <div class="next-project-details">
+          <p>Currently in development, with a focus on reliable action-conditioning, long-horizon simulation, and physical grounding. Planned variants include V2D for driving and V2R for robotics.</p>
+        </div>
       </article>
 
       <article class="project pace-project" id="pace" aria-labelledby="pace-title">
@@ -100,7 +103,7 @@
           <p class="project-category">03 <span>Physics-Aware Control Extraction from Egocentric Driving Video</span></p>
           <h3 id="pace-title">Kosmic PACE</h3>
           <p class="project-deck">Control data for<br>action conditioning.</p>
-          <p class="project-description">PACE is an internal physics-based tool for estimating vehicle controls from logged kinematics. It supports the preparation of action-conditioned training data for our world action models.</p>
+          <p class="project-description">PACE is an internal physics-based tool for estimating vehicle controls from egocentric driving video. It supports the preparation of action-conditioned training data for our world action models.</p>
           <p class="project-description">The public demo compares its steering and pedal estimates with controls recorded by the vehicle.</p>
           <div class="project-actions">
             <a class="text-link" href="/pace/">About PACE <span aria-hidden="true">↗</span></a>
@@ -124,7 +127,6 @@
           <p class="eyebrow">Our approach</p>
           <h2 id="approach-title">World models for<br>policy training.</h2>
           <p class="approach-intro">Our work focuses on controllable generation, temporal consistency, and physical grounding.</p>
-          <a class="text-link approach-link" href="/approach/">Read our approach <span aria-hidden="true">↗</span></a>
         </div>
         <ol class="research-steps">
           <li><span class="step-number" aria-hidden="true">01</span><div><h3>Action-conditioned generation</h3><p>Pair observations with control inputs so rollouts can be directed by a robot or driving policy.</p></div></li>

@@ -1,0 +1,22 @@
+@font-face { font-family: Inter; src: url('../fonts/InterVariable.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+* { box-sizing: border-box; }
+body { margin: 0; color: #1c211e; background: #e9e9e5; font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px; }
+.reader-toolbar { min-height: 55px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 9px 20px; padding: 10px 16px; background: #f7f7f3; border-bottom: 1px solid #dcded6; position: sticky; top: 0; z-index: 1; }
+.reader-navigation, .reader-tools { display: flex; align-items: center; gap: 10px; }
+button, input, select { color: inherit; font: inherit; border: 1px solid #d4d7ce; border-radius: 2px; background: transparent; height: 30px; }
+button { width: 32px; cursor: pointer; font-size: 17px; }
+button:hover:not(:disabled), select:hover { background: #eeefe8; }
+button:disabled { opacity: .35; cursor: default; }
+input { width: 48px; text-align: center; padding: 3px; appearance: textfield; -moz-appearance: textfield; }
+input::-webkit-inner-spin-button, input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+select { padding-inline: 7px; }
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid #1c211e; outline-offset: 3px; }
+#page-scroll { min-height: calc(100vh - 55px); padding: 22px; overflow-x: auto; }
+#pdf-page { display: block; margin-inline: auto; background: white; box-shadow: 0 1px 5px #00000014; }
+#pdf-page[hidden] { display: none; }
+#reader-status { color: #5e645e; text-align: center; margin-block: 24px; }
+#reader-status[hidden] { display: none; }
+.reader-sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 450px) { .reader-toolbar { padding: 9px 10px; gap: 9px; } .reader-navigation, .reader-tools { gap: 7px; } #page-scroll { padding: 12px; } .reader-tools { width: 100%; justify-content: space-between; } }

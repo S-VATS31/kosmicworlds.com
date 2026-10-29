@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
   <base href="/">
-  <title>Our Mission — Kosmic Worlds preview</title>
+  <title>Our Mission — Kosmic Worlds</title>
+  <meta name="description" content="Train and validate autonomous systems before they reach the real world. Kosmic Worlds develops world models for robotics and autonomous-driving simulation.">
+  <meta name="theme-color" content="#f7f7f3">
   <link rel="icon" type="image/svg+xml" href="assets/images/kosmic-mark.svg">
   <link rel="preload" href="assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=8">
+  <link rel="stylesheet" href="assets/css/mission.css?v=3">
   <script src="assets/js/main.js" defer></script>
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<body class="mission-page">
+  <a class="skip-link" href="/mission/#main">Skip to content</a>
   <header class="site-header container">
     <a class="brand" href="/" aria-label="Kosmic Worlds home">
       <img src="assets/images/kosmic-mark.svg" width="34" height="34" alt="">
@@ -25,17 +27,54 @@
     <nav id="primary-nav" aria-label="Main navigation">
       <a href="/models/">Models</a>
       <a href="/pace/">PACE</a>
-      <a href="/approach/">Approach</a>
       <a href="/mission/" aria-current="page">Our Mission</a>
       <a href="/about/">About</a>
       <a class="nav-contact" href="/contact/">Contact <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
-  <main class="container route-preview" id="main">
-    <p class="eyebrow">Page route reserved</p>
-    <h1>Our Mission</h1>
-    <p>This page is reserved for the next stage of the website. Only the homepage has been designed in this preview.</p>
-    <a class="text-link" href="/">Return to homepage <span aria-hidden="true">↗</span></a>
+  <main id="main">
+    <section class="mission-hero container" aria-labelledby="mission-title">
+      <p class="eyebrow">Our Mission</p>
+      <h1 id="mission-title">Train and validate autonomous systems before they reach the real world.</h1>
+      <div class="mission-hero-bottom">
+        <p>We are building world models that give robotics and autonomous-driving teams more ways to learn from experience, train policies, and test decisions in simulation.</p>
+        <a class="text-link" href="/models/">Explore our models <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
+    <section class="mission-purpose-band" aria-labelledby="purpose-title">
+      <div class="container mission-purpose">
+        <div class="mission-purpose-heading"><p class="eyebrow">What we’re building toward</p><h2 id="purpose-title">Simulate experience before deployment.</h2><p>Simulation can expand the situations a system encounters during development. Our goal is to make those experiences useful for both learning and evaluation.</p></div>
+        <div class="mission-purpose-columns">
+          <article><p class="mission-section-index">01 / Training</p><h3>Learn across more scenarios.</h3><p>Generate varied experiences paired with physical actions, giving teams data for training driving policies and robot controllers.</p><p>Explore changes in environments, motion, and operating conditions without collecting every variation individually.</p></article>
+          <article><p class="mission-section-index">02 / Validation</p><h3>Test how a system responds.</h3><p>Use closed-loop simulation to study how a policy’s actions change what happens next.</p><p>Revisit scenarios, vary conditions, and compare behavior to understand where a system succeeds and where it needs more work.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="mission-priorities container" aria-labelledby="priorities-title">
+      <div class="mission-section-heading"><div><p class="eyebrow">Research priorities</p><h2 id="priorities-title">What useful simulation requires.</h2></div><p>Our research connects generated observations with the controls, time horizons, and physical behavior that matter to autonomous systems.</p></div>
+      <ol class="mission-priority-list">
+        <li><span class="mission-list-number" aria-hidden="true">01</span><h3>Actions with physical meaning.</h3><p>Steering, throttle, and brake for driving. Joint commands for robotics. The aim is to condition a rollout on controls that a policy can produce and a machine can execute.</p></li>
+        <li><span class="mission-list-number" aria-hidden="true">02</span><h3>Consistency over longer horizons.</h3><p>A useful simulation needs to retain scene information as a sequence unfolds. We focus on preserving geometry, objects, and state across longer rollouts.</p></li>
+        <li><span class="mission-list-number" aria-hidden="true">03</span><h3>Physical grounding.</h3><p>The relationship between an action and its outcome needs to be credible. We work toward generated motion and observations that remain consistent with physical constraints.</p></li>
+      </ol>
+    </section>
+
+    <section class="mission-applications-band" aria-labelledby="applications-title">
+      <div class="mission-applications container">
+        <div><p class="eyebrow">Putting the mission into practice</p><h2 id="applications-title">Driving and robotics.</h2><p class="mission-applications-intro">V2 is in development. V2D and V2R are planned variants for the different controls and environments these systems use.</p><a class="text-link" href="/models/v2/">Explore V2 development <span aria-hidden="true">↗</span></a></div>
+        <div class="mission-variant-list">
+          <article><p class="mission-section-index">Driving · V2D · Planned</p><h3>Autonomous vehicles.</h3><p>Synthetic training data and closed-loop simulation for end-to-end driving policies, using steering wheel angle, throttle percentage, and brake percentage.</p></article>
+          <article><p class="mission-section-index">Robotics · V2R · Planned</p><h3>Robots acting in the world.</h3><p>Action-conditioned experiences and closed-loop simulation for robot policies, using joint angles, velocities, trajectories, and torques.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="mission-contact container" aria-labelledby="mission-contact-title">
+      <div><p class="eyebrow">Research and partnerships</p><h2 id="mission-contact-title">Work with Kosmic Worlds.</h2><p>Help define the scenarios, controls, and evaluation needs that useful world models should support.</p></div>
+      <a class="text-link" href="mailto:contact@kosmicworlds.com">contact@kosmicworlds.com <span aria-hidden="true">↗</span></a>
+    </section>
   </main>
   <footer class="site-footer container">
     <a class="brand footer-brand" href="/" aria-label="Kosmic Worlds home"><img src="assets/images/kosmic-mark.svg" width="26" height="26" alt=""><span>Kosmic Worlds</span></a>

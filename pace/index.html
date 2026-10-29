@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
   <base href="/">
-  <title>PACE — Kosmic Worlds preview</title>
+  <title>Kosmic PACE — Physics-Aware Control Extraction</title>
+  <meta name="description" content="Physics-based steering, throttle, and brake labels synchronized with driving video. Explore the Kosmic PACE demos, method, recorded-control validation, and public overview.">
+  <meta name="theme-color" content="#f7f7f3">
   <link rel="icon" type="image/svg+xml" href="assets/images/kosmic-mark.svg">
   <link rel="preload" href="assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=8">
+  <link rel="stylesheet" href="assets/css/pace.css?v=6">
   <script src="assets/js/main.js" defer></script>
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<body class="pace-page">
+  <a class="skip-link" href="/pace/#main">Skip to content</a>
   <header class="site-header container">
     <a class="brand" href="/" aria-label="Kosmic Worlds home">
       <img src="assets/images/kosmic-mark.svg" width="34" height="34" alt="">
@@ -25,17 +27,103 @@
     <nav id="primary-nav" aria-label="Main navigation">
       <a href="/models/">Models</a>
       <a href="/pace/" aria-current="page">PACE</a>
-      <a href="/approach/">Approach</a>
       <a href="/mission/">Our Mission</a>
       <a href="/about/">About</a>
       <a class="nav-contact" href="/contact/">Contact <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
-  <main class="container route-preview" id="main">
-    <p class="eyebrow">Page route reserved</p>
-    <h1>PACE</h1>
-    <p>This page is reserved for the next stage of the website. Only the homepage has been designed in this preview.</p>
-    <a class="text-link" href="/">Return to homepage <span aria-hidden="true">↗</span></a>
+  <nav class="pace-subnav container" aria-label="PACE sections"><a href="/pace/#method">Method</a><a href="/pace/#results">Results</a><a href="/pace/#examples">Examples</a><a href="/pace/#documentation">Documentation</a><a href="/pace/#partnerships">Contact</a></nav>
+  <main id="main">
+    <section class="pace-hero container" aria-labelledby="pace-title">
+      <div class="pace-hero-copy">
+        <p class="eyebrow">Action labels for driving video</p>
+        <h1 id="pace-title">Kosmic PACE</h1>
+        <p class="pace-deck">Physics-Aware Control Extraction</p>
+        <p class="pace-lead">Estimate steering wheel angle, throttle, and brake from how a vehicle moves. Synchronize those controls with video for world-model and driving-policy training.</p>
+        <div class="pace-actions"><a class="text-link" href="/pace/#results" >Explore the results <span aria-hidden="true">↗</span></a><a class="quiet-link" href="/pace/#documentation" >Public overview <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <figure class="pace-demo" id="demo">
+        <div class="video-embed video-embed-pace"><iframe src="https://www.youtube.com/embed/2ZVLsziWVF4?controls=1&amp;disablekb=0&amp;fs=1&amp;playsinline=1&amp;rel=0" title="Kosmic PACE official demo" width="1280" height="720" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+        <figcaption><span>Real driving footage · PACE overlays</span><div class="video-links"><a href="https://youtu.be/2ZVLsziWVF4" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a><a href="https://youtu.be/JP7dGMqS2CE" target="_blank" rel="noopener noreferrer">Extended cut ↗</a></div></figcaption>
+      </figure>
+    </section>
+
+    <section class="pace-benchmark container" aria-label="Steering benchmark highlights">
+      <dl class="pace-key-facts"><div><dt>Evaluation datasets</dt><dd>8</dd></div><div><dt>Scored steering frames</dt><dd>25M</dd></div><div><dt>Steering MAE</dt><dd>4.16°</dd></div><div><dt>Steering RMSE</dt><dd>7.50°</dd></div></dl>
+      <p class="pace-note">Video-input evaluation, speed &gt; 5 m/s. Errors measured at the steering wheel; equal-dataset weighting. <a href="/pace/#evaluation-notes">See evaluation scope ↓</a></p>
+    </section>
+
+    <section class="pace-section container" id="method" aria-labelledby="method-title">
+      <div class="pace-section-heading"><div><p class="eyebrow">Method</p><h2 id="method-title">Control labels from<br>driving video.</h2></div><p>PACE uses a proprietary physics-based model to estimate control inputs from egocentric driving video. The resulting action labels are synchronized with the video for model training.</p></div>
+      <ol class="pace-flow" aria-label="PACE control-extraction flow">
+        <li><span class="flow-index">01 / Input</span><h3>Egocentric video</h3><p>Driving footage with frame timestamps.</p></li>
+        <li><span class="flow-index">02 / Processing</span><h3>Kosmic PACE</h3><p>Proprietary physics-based control extraction.</p></li>
+        <li><span class="flow-index">03 / Output</span><h3>Frame-aligned controls</h3><ul><li>Steering wheel angle <span>radians</span></li><li>Throttle position <span>0–100%</span></li><li>Brake position <span>0–100%</span></li></ul></li>
+      </ol>
+      <p class="pace-scope-note">The public overview presents capabilities, validation results, and limitations. Algorithmic details are available to partners under NDA.</p>
+    </section>
+
+    <section class="pace-datasets-band" aria-labelledby="datasets-title"><div class="container pace-section">
+      <div class="pace-section-heading"><div><p class="eyebrow">Evaluation datasets</p><h2 id="datasets-title">Across vehicles<br>and environments.</h2></div><p>One representative front-camera frame from each of the eight evaluation datasets, spanning passenger cars, a van, a coach, and a semi-truck.</p></div>
+      <figure class="pace-appendix-figure"><a href="assets/images/pace/evaluation-datasets.jpg?v=1b082d1d5f00" target="_blank" rel="noopener" aria-label="Open the eight-dataset figure at full size"><img src="assets/images/pace/evaluation-datasets.jpg?v=1b082d1d5f00" width="2400" height="814" alt="Eight dataset frames in two rows: A2D2, comma2k19, Turing Japan, Yaak L2D, ZOD, Udacity, RoboBus, and VTTI CONOPS." loading="lazy"></a><figcaption>Figure 1 from the public overview. Frames © their respective dataset providers. Dataset attributions and notices are included in the embedded PDF.</figcaption></figure>
+    </div></section>
+
+    <section class="pace-results-band" id="results" aria-labelledby="results-title"><div class="container pace-section">
+      <div class="pace-section-heading"><div><p class="eyebrow">Recorded-control validation</p><h2 id="results-title">Steering across<br>eight datasets.</h2></div><p>Predicted steering is compared with synchronized CAN steering targets at speeds above 5 m/s. Results include both equal-dataset and pooled summaries.</p></div>
+      <div class="pace-result-tools"><p class="pace-note">Steering wheel angle · errors in degrees</p><a class="quiet-link" href="assets/data/pace-steering-results.csv" download>Download CSV <span aria-hidden="true">↗</span></a></div>
+<div class="pace-speed-result">
+      <p class="result-context">Steering wheel angle · speed &gt; 5 m/s · 24,983,552 scored frames</p>
+      <div class="pace-table-scroll" role="region" aria-label="Steering results above 5 metres per second" tabindex="0">
+        <table class="pace-table">
+          <caption class="pace-sr-only">Steering wheel angle error against CAN ground truth, strictly above 5 m/s. Errors are in degrees.</caption>
+          <thead><tr><th scope="col">Dataset</th><th scope="col">Scored frames</th><th scope="col">MAE</th><th scope="col">RMSE</th></tr></thead>
+          <tbody><tr><th scope="row">A2D2</th><td>32,325</td><td>1.99°</td><td>3.03°</td></tr><tr><th scope="row">comma2k19</th><td>2,043,677</td><td>2.18°</td><td>3.11°</td></tr><tr><th scope="row">Turing Japan</th><td>2,354,277</td><td>1.97°</td><td>2.83°</td></tr><tr><th scope="row">Yaak L2D</th><td>18,873,404</td><td>5.70°</td><td>12.32°</td></tr><tr><th scope="row">ZOD</th><td>284,532</td><td>4.42°</td><td>5.93°</td></tr><tr><th scope="row">Udacity Self-Driving Car Dataset</th><td>693,153</td><td>1.31°</td><td>2.24°</td></tr><tr><th scope="row">RoboBus</th><td>690,225</td><td>6.67°</td><td>10.46°</td></tr><tr><th scope="row">VTTI CONOPS</th><td>11,959</td><td>9.03°</td><td>11.02°</td></tr></tbody>
+          <tfoot><tr><th scope="row">Equal-dataset weighting</th><td>8 datasets</td><td>4.16°</td><td>7.50°</td></tr>
+          <tr><th scope="row">All scored frames pooled</th><td>24,983,552</td><td>4.95°</td><td>10.95°</td></tr></tfoot>
+        </table>
+      </div>
+    </div>
+      <p class="pace-note">MAE is the mean absolute error. RMSE gives greater weight to large errors. Equal-dataset MAE averages the eight dataset MAEs; equal-dataset RMSE is the square root of the mean dataset MSE. Pooled metrics weight every scored frame equally.</p>
+      <details class="pace-details" id="evaluation-notes"><summary>Evaluation scope and calibration notes</summary><div>
+        <p>One front-camera timeline is counted per dataset: Udacity’s center camera, RoboBus camera 200, and synchronized Yaak state rows counted once. Original finite-value, duplicate, direction, and camera-alignment masks are preserved.</p>
+        <ul><li><strong>Coverage:</strong> above 5 m/s, valid predictions cover 98.66% of eligible RoboBus frames and 99.996% of Udacity frames; the other six datasets have 100% coverage under their eligibility masks.</li><li><strong>A2D2 and CONOPS:</strong> A2D2 covers the available continuous-motion records. CONOPS covers Port Queuing recordings; its cross-country release has no comparable steering target.</li><li><strong>Yaak:</strong> steering errors in degrees inherit the adapter’s ±480° conversion from normalized steering.</li><li><strong>Turing Japan:</strong> the retained effective steering ratio was calibrated previously, and calibration recordings are included in the reported evaluation. This is not a wholly held-out calibration benchmark.</li></ul>
+        <p>The public steering benchmark scores frames above 5 m/s. Selected demonstration excerpts below have a different scope. Detailed speed breakdowns are available in the full partner report.</p>
+      </div></details>
+    </div></section>
+
+    <section class="pace-section container" aria-labelledby="pedals-title">
+      <div class="pace-section-heading"><div><p class="eyebrow">Longitudinal controls</p><h2 id="pedals-title">Throttle and brake.</h2></div><p>Pedal channels are scored only where the recorded signal is comparable to pedal position. The public overview reports all-speed throttle results on seven datasets, and brake results on Yaak L2D.</p></div>
+      <div class="pace-table-scroll" role="region" aria-label="All-speed throttle and brake results" tabindex="0"><table class="pace-table pace-pedal-table"><colgroup><col class="pedal-dataset-column"><col class="pedal-frame-column"><col span="4" class="pedal-metric-column"></colgroup><caption>All speeds · Errors in percentage points of full pedal travel</caption><thead><tr><th scope="col">Dataset</th><th scope="col">Scored frames</th><th scope="col"><span class="pedal-header-channel">Throttle</span><span class="pedal-header-metric">MAE</span></th><th scope="col"><span class="pedal-header-channel">Throttle</span><span class="pedal-header-metric">RMSE</span></th><th scope="col"><span class="pedal-header-channel">Brake</span><span class="pedal-header-metric">MAE</span></th><th scope="col"><span class="pedal-header-channel">Brake</span><span class="pedal-header-metric">RMSE</span></th></tr></thead><tbody><tr><th scope="row">A2D2</th><td>65,371</td><td>2.51</td><td>4.51</td><td>—</td><td>—</td></tr><tr><th scope="row">comma2k19</th><td>2,360,839</td><td>7.21</td><td>10.17</td><td>—</td><td>—</td></tr><tr><th scope="row">Yaak L2D</th><td>24,885,560</td><td>5.05</td><td>8.37</td><td>1.95</td><td>5.15</td></tr><tr><th scope="row">ZOD</th><td>351,055</td><td>7.71</td><td>11.54</td><td>—</td><td>—</td></tr><tr><th scope="row">Udacity Self-Driving Car Dataset</th><td>976,609</td><td>4.36</td><td>6.78</td><td>—</td><td>—</td></tr><tr><th scope="row">RoboBus</th><td>847,852</td><td>9.96</td><td>17.01</td><td>—</td><td>—</td></tr><tr><th scope="row">VTTI CONOPS</th><td>39,765</td><td>9.10</td><td>16.15</td><td>—</td><td>—</td></tr></tbody><tfoot><tr><th scope="row">Equal-dataset weighting</th><td>7 datasets</td><td>6.56</td><td>11.48</td><td>1.95*</td><td>5.15*</td></tr></tfoot></table></div>
+      <div class="pace-table-after"><p class="pace-note">Source: public overview, Table 2. These are separate all-speed pedal results, not the steering threshold populations. A dash denotes unavailable comparable ground truth. *Brake averages are Yaak-only. Turing is omitted because it has no usable pedal signal in this evaluation.</p><a class="quiet-link" href="assets/data/pace-pedal-results.csv" download>Download CSV <span aria-hidden="true">↗</span></a></div>
+      <p class="pace-note">Pedal accuracy depends on the vehicle, signal definition, and evaluation setup. These scores do not establish equivalent accuracy on an unseen vehicle.</p>
+    </section>
+
+    <section class="pace-examples-band" id="examples" aria-labelledby="examples-title"><div class="container pace-section">
+      <div class="pace-section-heading"><div><p class="eyebrow">Frame progression</p><h2 id="examples-title">Controls,<br>frame by frame.</h2></div><p>Four sequences compare PACE with recorded controls across Yaak L2D, RoboBus, VTTI CONOPS, and comma2k19. Each row follows one maneuver through four camera frames.</p></div>
+      <figure class="pace-appendix-figure"><a href="assets/images/pace/control-progression.jpg?v=ecf92c0a4e54" target="_blank" rel="noopener" aria-label="Open the frame-progression figure at full size"><img src="assets/images/pace/control-progression.jpg?v=ecf92c0a4e54" width="2400" height="1313" alt="Four rows of driving frames at offsets T equals 0, 50, 100, and 150, with speed, steering wheels, steering paths, and available pedal overlays. Actual controls are magenta and PACE estimates are green." loading="lazy"></a><figcaption>Figure 5 from the public overview. Columns show relative camera-frame offsets T = 0, 50, 100, and 150. Magenta: Actual. Green: PACE. Available controls are shown per dataset; steering paths are approximate projections. Select the image to inspect it at full size.</figcaption></figure>
+    </div></section>
+
+    <section class="pace-trace-band" aria-labelledby="trace-title"><div class="container pace-section">
+      <div class="pace-section-heading"><div><p class="eyebrow">Selected maneuver</p><h2 id="trace-title">Through a roundabout.</h2></div><p>A 15-second RoboBus excerpt shows the entire turn, including the wheel unwinding. Magenta is the recorded steering; green is PACE.</p></div>
+      <figure class="pace-trace"><img src="assets/images/pace/robobus-roundabout-appendix.png?v=da5497676034" width="1872" height="740" alt="RoboBus roundabout steering: actual peak 682.3°, with PACE at 691.1° at the same frame." loading="eager"><figcaption>Figure 3 from the public overview · Setra S431DT · 450 frames · All speeds. The recorded peak occurs at 4.6 m/s, below the headline benchmark’s speed threshold. This is a selected example.</figcaption></figure>
+      <div class="pace-trace-links"><a class="quiet-link" href="assets/data/pace-robobus-steering-trace.csv" download>Download trace data <span aria-hidden="true">↗</span></a><a class="quiet-link" href="https://youtu.be/JP7dGMqS2CE" target="_blank" rel="noopener noreferrer">Watch longer sequences <span aria-hidden="true">↗</span></a></div>
+    </div></section>
+
+    <section class="pace-section pace-limits container" aria-labelledby="limits-title">
+      <div><p class="eyebrow">Scope and limitations</p><h2 id="limits-title">Where accuracy<br>depends on context.</h2></div><div class="pace-limit-list">
+        <article><h3>Low-speed and stopped steering</h3><p>Small motion errors are amplified at low speed. A stationary trajectory cannot reveal steering while stopped. Parking and reversing remain important open cases. Detailed lower-speed analysis is available in the full partner report.</p></article>
+        <article><h3>Vehicle-specific accuracy</h3><p>Accuracy varies across vehicles and operating conditions. Results for known evaluation vehicles do not guarantee equivalent performance on an unknown vehicle.</p></article>
+        <article><h3>Heavy and articulated vehicles</h3><p>The current dynamics model treats the vehicle as one rigid body. The coach and truck results do not validate trailer articulation or a general multi-body model.</p></article>
+        <article><h3>Demonstration overlays</h3><p>Steering paths are approximate projections for visualization, not measured future trajectories. Unsupported channels are omitted or marked N/A. The demonstrations use real dataset footage with control overlays.</p></article>
+      </div>
+    </section>
+
+    <section class="pace-documentation-band" id="documentation" aria-labelledby="documentation-title"><div class="container pace-section pace-documentation">
+      <div><p class="eyebrow">Documentation</p><h2 id="documentation-title">PACE public overview.</h2><p class="pace-note">October 2026 · 7 pages · PDF</p></div><div><p>The public overview covers the method, eight-dataset steering evaluation, pedal results, qualitative examples, and limitations.</p><div class="pace-actions"><a class="text-link" href="assets/documents/pace-technical-appendix-viewer.html?v=82e0c896e6f5" target="_blank" rel="noopener">Open in a new tab <span aria-hidden="true">↗</span></a><a class="quiet-link" href="assets/documents/pace-technical-appendix.pdf?v=82e0c896e6f5" download>Download PDF <span aria-hidden="true">↗</span></a></div><p class="pace-note">Dataset attributions and notices are included in the overview. A fuller technical report is available to partners under NDA.</p></div>
+      <iframe class="pace-appendix-viewer" src="assets/documents/pace-technical-appendix-viewer.html?v=82e0c896e6f5" title="Kosmic PACE Public Overview — 7-page PDF" loading="lazy"></iframe>
+    </div></section>
+
+    <section class="pace-section pace-contact container" id="partnerships" aria-labelledby="partnerships-title"><div><p class="eyebrow">Research and partnerships</p><h2 id="partnerships-title">Action-conditioned<br>world-model training.</h2></div><div><p>PACE supports our internal preparation of driving data for Kosmic Worlds. Contact us about validation, dataset integration, or world-model design partnerships.</p><div class="pace-actions"><a class="text-link" href="mailto:contact@kosmicworlds.com" >Contact us <span aria-hidden="true">↗</span></a><a class="quiet-link" href="/models/v2/" >Explore V2 and V2D <span aria-hidden="true">↗</span></a></div></div></section>
   </main>
   <footer class="site-footer container">
     <a class="brand footer-brand" href="/" aria-label="Kosmic Worlds home"><img src="assets/images/kosmic-mark.svg" width="26" height="26" alt=""><span>Kosmic Worlds</span></a>

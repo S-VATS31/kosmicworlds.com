@@ -1,0 +1,77 @@
+/* Our Mission: shared site typography with an editorial, text-led layout. */
+.mission-hero { padding-block: 75px 60px; }
+.mission-hero > .eyebrow { margin-bottom: 29px; color: var(--body); }
+.mission-page h1 { max-width: 1100px; font-size: clamp(48px, 5.8vw, 84px); line-height: 1.08; letter-spacing: -.055em; text-wrap: balance; }
+.mission-hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 70px; margin-top: 36px; }
+.mission-hero-bottom > p { max-width: 630px; color: var(--body); font-size: 17px; line-height: 1.8; }
+.mission-hero-bottom .text-link { flex-shrink: 0; margin-bottom: 5px; }
+.mission-purpose-band { background: var(--band); color: var(--ink); }
+.mission-purpose { padding-block: 67px 72px; }
+.mission-purpose-heading { display: grid; grid-template-columns: 1fr 1fr; column-gap: 90px; }
+.mission-purpose-heading .eyebrow { grid-column: 1 / -1; color: var(--body); margin-bottom: 23px; }
+.mission-page h2 { font-size: clamp(30px, 3.15vw, 44px); }
+.mission-purpose-heading > p:not(.eyebrow) { color: var(--body); font-size: 14px; line-height: 1.85; max-width: 470px; padding-top: 2px; }
+.mission-purpose-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; margin-top: 41px; }
+.mission-purpose-columns article { border-top: 1px solid #cdd1c8; padding-top: 25px; }
+.mission-section-index { font-size: 10px; line-height: 1.65; color: var(--muted); margin-bottom: 19px; }
+.mission-purpose-columns .mission-section-index { color: var(--muted); }
+.mission-purpose-columns h3 { font-size: 25px; line-height: 1.35; font-weight: 450; letter-spacing: -.03em; margin-bottom: 17px; }
+.mission-purpose-columns article > p:not(.mission-section-index) { color: var(--body); font-size: 13px; line-height: 1.85; max-width: 460px; }
+.mission-purpose-columns article > p + p { margin-top: 13px; }
+.mission-priorities { padding-block: 80px; }
+.mission-section-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; margin-bottom: 39px; }
+.mission-section-heading .eyebrow { margin-bottom: 22px; }
+.mission-section-heading > p { padding-top: 33px; color: var(--body); font-size: 14px; line-height: 1.85; }
+.mission-priority-list { list-style: none; margin: 0; padding: 0; }
+.mission-priority-list li { display: grid; grid-template-columns: 34px .95fr 1.25fr; gap: 33px; padding-block: 28px; border-top: 1px solid var(--rule); }
+.mission-priority-list li:last-child { border-bottom: 1px solid var(--rule); }
+.mission-list-number { color: var(--muted); font-size: 10px; padding-top: 5px; }
+.mission-priority-list h3 { font-size: 22px; line-height: 1.4; font-weight: 450; letter-spacing: -.035em; max-width: 300px; }
+.mission-priority-list li > p { font-size: 13px; line-height: 1.85; color: var(--body); max-width: 490px; }
+.mission-applications-band { background: var(--band); }
+.mission-applications { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; padding-block: 70px; }
+.mission-applications .eyebrow { margin-bottom: 22px; }
+.mission-applications-intro { margin-top: 23px; color: var(--body); font-size: 14px; line-height: 1.85; max-width: 400px; }
+.mission-applications .text-link { margin-top: 27px; }
+.mission-variant-list article + article { border-top: 1px solid #cdd1c8; margin-top: 27px; padding-top: 27px; }
+.mission-variant-list .mission-section-index { margin-bottom: 13px; }
+.mission-variant-list h3 { font-size: 23px; line-height: 1.4; font-weight: 450; letter-spacing: -.035em; margin-bottom: 13px; }
+.mission-variant-list article > p:not(.mission-section-index) { color: var(--body); font-size: 13px; line-height: 1.85; }
+.mission-contact { display: flex; align-items: center; justify-content: space-between; gap: 60px; padding-block: 70px 80px; }
+.mission-contact .eyebrow { margin-bottom: 22px; }
+.mission-contact h2 { font-size: clamp(28px, 2.65vw, 36px); }
+.mission-contact p:not(.eyebrow) { font-size: 13px; line-height: 1.85; color: var(--body); max-width: 490px; margin-top: 20px; }
+.mission-contact .text-link { flex-shrink: 0; }
+@media (max-width: 1100px) {
+  .mission-hero { padding-top: 61px; }
+  .mission-purpose-heading, .mission-purpose-columns, .mission-section-heading, .mission-applications { gap: 48px; }
+  .mission-purpose-heading .eyebrow { margin-bottom: 22px; }
+  .mission-priority-list li { gap: 23px; }
+  .mission-priority-list h3 { font-size: 20px; }
+}
+@media (max-width: 760px) {
+  .mission-hero { padding-block: 44px; }
+  .mission-hero > .eyebrow { margin-bottom: 23px; }
+  .mission-page h1 { font-size: clamp(38px, 8.8vw, 58px); text-wrap: pretty; }
+  .mission-hero-bottom { display: block; margin-top: 25px; }
+  .mission-hero-bottom > p { font-size: 15px; }
+  .mission-hero-bottom .text-link { margin-top: 24px; margin-bottom: 0; }
+  .mission-purpose { padding-block: 43px 49px; }
+  .mission-purpose-heading, .mission-purpose-columns, .mission-section-heading, .mission-applications { grid-template-columns: 1fr; gap: 24px; }
+  .mission-purpose-heading { row-gap: 21px; }
+  .mission-purpose-heading .eyebrow { grid-column: auto; margin-bottom: 0; }
+  .mission-purpose-heading > p:not(.eyebrow) { padding-top: 0; font-size: 13px; }
+  .mission-purpose-columns { margin-top: 30px; gap: 30px; }
+  .mission-purpose-columns h3 { font-size: 24px; }
+  .mission-priorities { padding-block: 48px; }
+  .mission-section-heading { margin-bottom: 29px; }
+  .mission-section-heading > p { padding-top: 0; font-size: 13px; }
+  .mission-priority-list li { grid-template-columns: 20px 1fr; gap: 12px 16px; padding-block: 25px; }
+  .mission-priority-list h3 { max-width: none; font-size: 22px; }
+  .mission-priority-list li > p { grid-column: 2; font-size: 13px; }
+  .mission-applications { padding-block: 47px; gap: 37px; }
+  .mission-applications-intro { font-size: 13px; }
+  .mission-variant-list article:first-child { border-top: 1px solid #cdd1c8; padding-top: 26px; }
+  .mission-contact { display: block; padding-block: 47px 55px; }
+  .mission-contact .text-link { margin-top: 26px; font-size: 12px; }
+}
